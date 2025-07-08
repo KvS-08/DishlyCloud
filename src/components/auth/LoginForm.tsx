@@ -39,7 +39,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onShowRegister }) => {
   };
   
   return (
-    <div className={`w-full max-w-sm p-7 space-y-5 bg-white rounded-lg shadow-md dark:bg-gray-800 border border-primary-600 transition-opacity duration-500 ease-in ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`w-full max-w-sm p-6 space-y-5 bg-white rounded-lg shadow-md dark:bg-gray-800 border border-primary-600 transition-opacity duration-500 ease-in ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <div className="text-center">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           Iniciar Sesión
@@ -65,10 +65,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onShowRegister }) => {
               id="emailOrUsername"
               type="text"
               className={`input pl-7 w-full bg-gray-100 dark:bg-gray-900 ${errors.emailOrUsername ? 'border-red-500' : ''}`}
-              placeholder="ejemplo@correo.com o usuario"
+              placeholder="ejemplo@correo.com"
               disabled={loading}
               {...register('emailOrUsername', { 
-                required: 'El correo o usuario es requerido'
+                required: 'El correo es requerido'
               })}
             />
           </div>
@@ -110,7 +110,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onShowRegister }) => {
             <input
               id="remember-me"
               type="checkbox"
-              className="h-4 w-4 rounded border-green-300 text-green-600 focus:ring-green-500"
+              className="h-3 w-3 rounded border-green-300 text-green-600 focus:ring-green-500"
               disabled={loading}
             />
             <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
@@ -118,7 +118,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onShowRegister }) => {
             </label>
           </div>
           
-          <a href="#" className="ml-2 text-xs md:text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
+          <a href="#" className="ml-4 text-xs md:text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
             ¿Olvidaste tu contraseña?
           </a>
         </div>
@@ -143,7 +143,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onShowRegister }) => {
                 Iniciando sesión...
               </>
             ) : (
-              'Iniciar Sesión'
+              'Acceder'
             )}
           </button>
         </div>

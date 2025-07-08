@@ -19,7 +19,7 @@ export const AuthLayout: React.FC = () => {
       </main>
       
       <footer className="w-full py-2 px-6 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-        <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+        <div className="text-left md:text-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
           &copy; {new Date().getFullYear()} DishlyCloud. Todos los derechos reservados.
         </div>
       </footer>
