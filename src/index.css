@@ -195,3 +195,7 @@
 .fade-out-animation {
   animation: fadeOut 0.8s ease-out forwards;
 }
+
+.text-shadow {
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+}

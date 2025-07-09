@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useRandomBackground } from '../hooks/useRandomBackground';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegisterForm } from '../components/auth/RegisterForm';
-
 export const LoginPage: React.FC = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -17,6 +17,8 @@ export const LoginPage: React.FC = () => {
     duration: 0.5,
     ease: "easeOut",
   };
+
+  const randomBackground = useRandomBackground();
 
   return (
     <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl mx-auto flex flex-row bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-x-auto">
@@ -53,9 +55,10 @@ export const LoginPage: React.FC = () => {
 
         {/* Right Section: Restaurant Logos */}
         <div className={`w-full lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-800 p-10 lg:p-13 flex items-center justify-center relative overflow-hidden ${showLogin ? 'hidden lg:flex' : ''}`}>
-          <div className="absolute inset-0 z-0 opacity-20" style={{ backgroundImage: 'url(/Background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-          <div className="relative z-10 text-white text-center">
-            <h2 className="text-2xl font-bold -mt-5 mb-6">Nuestra Familia</h2>
+          <div className="absolute inset-0 z-0" style={{ backgroundImage: `url(${randomBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+            <div className="absolute inset-0 bg-primary-600 opacity-50 z-10"></div>
+            <div className="relative z-20 text-white text-center">
+            <h2 className="text-2xl font-bold -mt-5 mb-6 text-shadow">Nuestra Familia</h2>
             <div className="grid grid-cols-3 gap-4">
               {/* Placeholder for restaurant logos */}
               <img 
