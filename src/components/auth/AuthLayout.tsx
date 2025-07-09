@@ -5,7 +5,7 @@ import { ThemeToggle } from '../ui/ThemeToggle';
 
 export const AuthLayout: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+    <div className="min-h-screen bg-gray-200 dark:bg-gray-900 flex flex-col">
       <header className="w-full h-12 flex items-center justify-between px-1 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center space-x-0">
           <img 
