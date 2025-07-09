@@ -43,7 +43,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onShowRegister }) => {
   };
   
   return (
-    <div className={`w-full max-w-sm p-6 space-y-5 bg-white rounded-lg shadow-md dark:bg-gray-800 border border-primary-600 transition-opacity duration-500 ease-in ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`w-full max-w-sm p-6 space-y-5 bg-white rounded-lg shadow-md dark:bg-gray-800 border border-primary-100 transition-opacity duration-500 ease-in ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <div className="text-center">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           Iniciar Sesión
