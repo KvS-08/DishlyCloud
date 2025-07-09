@@ -118,7 +118,7 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
   if (!showModal) return null;
 
   const handleSaveCloseCashier = () => {
-    if (!closeTime || cashClose === null || cashClose === undefined) {
+    if (!closeTime || cashClose === 0) {
       alert('Por favor completa todos los campos');
       return;
     }
@@ -256,20 +256,20 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
                   className="mt-1 block w-full pl-8 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   placeholder="0.00"
                   step="0.01"
-                  value={cashClose.toString()}
+                  value={cashClose === 0 ? '' : cashClose.toString()}
                   onChange={(e) => setCashClose(e.target.value === '' ? 0 : parseFloat(e.target.value))}
                 />
               </div>
             </div>
           </div>
           
-          <hr className={`mb-0 border-gray-300 dark:border-gray-600 ${!closeTime || (cashClose === null || cashClose === undefined) ? 'hidden' : ''}`} />
+          <hr className={`mb-0 border-gray-300 dark:border-gray-600 ${!closeTime || cashClose === 0 ? 'hidden' : ''}`} />
 
           <div className="flex justify-end space-x-3">
             <button
               onClick={handleSaveCloseCashier}
-              disabled={!closeTime || (cashClose === null || cashClose === undefined)}
-              className={`text-red-600 hover:text-red-500 dark:text-red-700 dark:hover:text-red-500 font-bold py-2 px-4 rounded ${!closeTime || (cashClose === null || cashClose === undefined) ? 'hidden' : ''}`}
+              disabled={!closeTime || cashClose === 0}
+              className={`text-red-600 hover:text-red-500 dark:text-red-700 dark:hover:text-red-500 font-bold py-2 px-4 rounded ${!closeTime || cashClose === 0 ? 'hidden' : ''}`}
             >
               Cerrar Caja
             </button>

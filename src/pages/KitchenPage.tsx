@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { NotificationBell } from '../components/ui/NotificationBell';
-import { useSound } from '../hooks/useSound';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { KitchenOrderCard } from '../components/kitchen/KitchenOrderCard';
@@ -37,8 +36,6 @@ interface KitchenOrder {
 export const KitchenPage: React.FC = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState<KitchenOrder[]>([]);
-  const playNewOrderSound = useSound('/sounds/neworder.mp3');
-  const playOrderCompleteSound = useSound('/sounds/ordercomplete.mp3');
   const [completedCount, setCompletedCount] = useState(0);
   const [loading, setLoading] = useState(true);
   
@@ -58,10 +55,7 @@ export const KitchenPage: React.FC = () => {
             table: 'kitchen_orders',
             filter: `business_id=eq.${user.business_id}`,
           },
-          async (payload) => {
-            if (payload.eventType === 'INSERT') {
-              playNewOrderSound();
-            }
+          () => {
             loadOrders();
           }
         )
@@ -138,7 +132,10 @@ export const KitchenPage: React.FC = () => {
       setCompletedCount(prevCount => prevCount + 1);
       
       // Play sound for order completion
-      playOrderCompleteSound();
+      const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+      audio.play().catch(() => {
+        // Ignore audio play errors
+      });
       
       toast.success('Orden marcada como servida');
     } catch (error) {
