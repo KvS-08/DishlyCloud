@@ -6,9 +6,18 @@ import { ThemeToggle } from '../ui/ThemeToggle';
 export const AuthLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
-      <header className="w-full h-12 flex items-center justify-between px-2 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center space-x-2">
-          <ChefHat className="h-8 w-8 text-primary-600 dark:text-primary-400" />
+      <header className="w-full h-12 flex items-center justify-between px-1 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center space-x-0">
+          <img 
+            src="/Logolight.svg" 
+            className="h-10 object-contain dark:hidden" 
+            alt="DishlyCloud Logo"
+          />
+          <img 
+            src="/Logodark.png" 
+            className="h-10 object-contain hidden dark:block" 
+            alt="DishlyCloud Logo"
+          />
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">DishlyCloud</h1>
         </div>
         <ThemeToggle />
