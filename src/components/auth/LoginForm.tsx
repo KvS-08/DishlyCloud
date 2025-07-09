@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../hooks/useAuth';
 import { Lock, Mail, User } from 'lucide-react';
+import { useSound } from '../../hooks/useSound';
 
 type LoginFormInputs = {
   emailOrUsername: string;
@@ -20,12 +21,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onShowRegister }) => {
   }, []);
 
   const { signIn, loading } = useAuth();
-  const { 
-    register, 
+  const {
+    register,
     handleSubmit,
     setError,
     formState: { errors }
   } = useForm<LoginFormInputs>();
+
+  const playLoginFailedSound = useSound('/sounds/loginfailed.mp3');
   
   const onSubmit = async (data: LoginFormInputs) => {
     try {
@@ -35,6 +38,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onShowRegister }) => {
         type: 'manual',
         message: error.message || 'Error al iniciar sesión'
       });
+      playLoginFailedSound();
     }
   };
   

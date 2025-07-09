@@ -6,6 +6,7 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
+import useSound from '../../hooks/useSound';
 
 const AddNotesModal = lazy(() => import('./AddNotesModal'));
 
@@ -45,6 +46,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
   currency = 'HNL'
 }) => {
   const { user } = useAuth();
+  const playOrderCreatedSound = useSound('/sounds/ordercreated.mp3');
   const [showModal, setShowModal] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [accountType, setAccountType] = useState('Abierta');
@@ -331,6 +333,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
       await createKitchenOrders(assignedTable);
 
       toast.success('Orden procesada exitosamente');
+      playOrderCreatedSound();
       onClose();
       
     } catch (error) {

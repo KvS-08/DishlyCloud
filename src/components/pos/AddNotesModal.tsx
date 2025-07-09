@@ -126,14 +126,8 @@ const AddNotesModal: React.FC<AddNotesModalProps> = ({
           
           <div className="flex justify-end space-x-3">
             <button
-              onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500"
-            >
-              Cancelar
-            </button>
-            <button
               onClick={handleSave}
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+              className="text-orange-500 hover:text-orange-600 text-sm font-medium underline-offset-4 hover:underline"
             >
               Agregar
             </button>
