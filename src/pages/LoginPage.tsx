@@ -56,7 +56,7 @@ export const LoginPage: React.FC = () => {
         {/* Right Section: Restaurant Logos */}
         <div className={`w-full lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-800 p-10 lg:p-13 flex items-center justify-center relative overflow-hidden ${showLogin ? 'hidden lg:flex' : ''}`}>
           <div className="absolute inset-0 z-0" style={{ backgroundImage: `url(${randomBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-            <div className="absolute inset-0 bg-primary-600 opacity-90 z-10"></div>
+            <div className="absolute inset-0 bg-primary-600 opacity-85 z-10"></div>
             <div className="relative z-20 text-white text-center">
             <h2 className="text-2xl font-bold -mt-5 mb-6 text-shadow">Nuestra Familia</h2>
             <div className="grid grid-cols-3 gap-4">
