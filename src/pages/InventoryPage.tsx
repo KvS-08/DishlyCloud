@@ -23,7 +23,7 @@ interface InventoryItem {
   cost_per_unit: number;
   business_id: string;
   fecha_agregado: string;
-  idp: string;
+
 
   stock_actual: number | null;
 }
@@ -140,8 +140,7 @@ const InventoryPage: React.FC = () => {
 
   // Filter inventory items based on search term
   const filteredInventoryItems = inventoryItems.filter(item => 
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (item.idp && item.idp.toLowerCase().includes(searchTerm.toLowerCase()))
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -199,6 +198,12 @@ const InventoryPage: React.FC = () => {
           />
         </div>
         <button
+          onClick={() => { /* TODO: Implement Categories functionality */ }}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-700 dark:hover:bg-blue-800"
+        >
+          Categorias
+        </button>
+        <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-1.5 rounded text-xs md:py-2.5 md:px-1.5 md:text-sm whitespace-nowrap"
           onClick={handleOpenModal}
         >
@@ -217,7 +222,7 @@ const InventoryPage: React.FC = () => {
                 <thead className="bg-gray-200 dark:bg-gray-700">
                   <tr>
                     <th scope="col" className="px-1 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider hidden md:table-cell">Fecha</th>
-                    <th scope="col" className="px-1 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider hidden md:table-cell">IDP</th>
+
                     <th scope="col" className="px-1 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Nombre</th>
                     <th scope="col" className="px-1 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider hidden md:table-cell">Costo Pedido</th>
                     <th scope="col" className="px-1 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider hidden md:table-cell">Costo Unitario</th>
@@ -250,9 +255,7 @@ const InventoryPage: React.FC = () => {
                         <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900 dark:text-white hidden md:table-cell">
                           {formatDate(item.created_at)}
                         </td>
-                        <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900 dark:text-white hidden md:table-cell">
-                          {(item as any).idp || '-'}
-                        </td>
+
                         <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900 dark:text-white">
                           {item.name}
                         </td>
@@ -269,9 +272,7 @@ const InventoryPage: React.FC = () => {
                         <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900 dark:text-white">
                           {(item.stock_actual !== null ? item.stock_actual : item.quantity)} {item.unit}
                           {item.stock_actual === 0 && (
-                            <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
-                              Agotado
-                            </span>
+                            <span className="ml-2 inline-flex items-center justify-center w-2 h-2 rounded-full bg-red-500 dark:bg-red-400"></span>
                           )}
                           {item.stock_actual !== null && item.stock_actual > 0 && item.stock_actual < item.min_stock_level && (
                             <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
