@@ -657,7 +657,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
                             step="0.01"
                             value={ingredientQuantities[ingredient.id] || 1}
                             onChange={(e) => handleQuantityChange(ingredient.id, parseFloat(e.target.value) || 1)}
-                            className="ml-2 w-16 text-xs border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            className="ml-2 w-12 text-xs border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white px-2"
                           />
                         )}
                       </div>
