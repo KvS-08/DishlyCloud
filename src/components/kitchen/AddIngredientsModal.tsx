@@ -174,13 +174,13 @@ const AddIngredientsModal: React.FC<AddIngredientsModalProps> = ({
         <div className="bg-white dark:bg-gray-800 px-6 pb-3 p-5 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 relative">
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
+            className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
           >
             <FaTimes size={20} />
           </button>
-          <h2 className="text-lg font-bold mb-1 dark:text-white">Agregar Ingrediente</h2>
+          <h2 className="text-lg font-bold mb-0 dark:text-white">Agregar Ingrediente</h2>
           <hr className="mb-4 border-gray-300 dark:border-gray-600" />
-          <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div>
               <label htmlFor="fecha" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Fecha</label>
               <input 
@@ -309,7 +309,7 @@ const AddIngredientsModal: React.FC<AddIngredientsModalProps> = ({
                 <button
                   onClick={handleSave}
                   disabled={loading}
-                  className="text-green-600 hover:text-green-500 dark:text-green-500 dark:hover:text-green-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-green-500 text-white px-1.5 py-0.5 rounded-md hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Agregando...' : 'Agregar'}
                 </button>

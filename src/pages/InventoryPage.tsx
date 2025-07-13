@@ -191,7 +191,7 @@ const InventoryPage: React.FC = () => {
           </div>
           <input 
             type="text" 
-            className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md bg-white text-black dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+            className="pl-10 pr-4 py-1.5 w-full border border-gray-300 rounded-md bg-white text-black dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
             placeholder="Buscar ingrediente..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -199,12 +199,12 @@ const InventoryPage: React.FC = () => {
         </div>
         <button
           onClick={() => { /* TODO: Implement Categories functionality */ }}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-700 dark:hover:bg-blue-800"
+          className="px-1.5 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-700 dark:hover:bg-blue-800"
         >
           Categorias
         </button>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-1.5 rounded text-xs md:py-2.5 md:px-1.5 md:text-sm whitespace-nowrap"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2.5 px-1.5 rounded text-xs md:py-2 md:px-1.5 md:text-sm whitespace-nowrap"
           onClick={handleOpenModal}
         >
           Agregar Ingrediente
