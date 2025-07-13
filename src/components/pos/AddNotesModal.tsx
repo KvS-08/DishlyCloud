@@ -87,10 +87,10 @@ const AddNotesModal: React.FC<AddNotesModalProps> = ({
             <FaTimes size={20} />
           </button>
           
-          <h2 className="text-xl font-bold mb-2 dark:text-white">Agregar Notas</h2>
+          <h2 className="text-xl font-bold mb-0.5 dark:text-white">Agregar Notas</h2>
           <hr className="mb-2 border-gray-300 dark:border-gray-600" />
           
-          <div className="space-y-6">
+          <div className="space-y-1">
             {selectedProducts.map((product) => (
               <div key={product.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
                 <h3 className="font-semibold text-lg mb-1 -mt-1 text-gray-900 dark:text-white">
@@ -112,7 +112,7 @@ const AddNotesModal: React.FC<AddNotesModalProps> = ({
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 -mt-4">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 mt-0">
                       Sin:
                     </label>
                     <textarea
@@ -134,7 +134,7 @@ const AddNotesModal: React.FC<AddNotesModalProps> = ({
               <div className="flex justify-end space-x-3">
                 <button
                   onClick={handleSave}
-                  className="text-orange-500 hover:text-orange-600 text-sm font-medium underline-offset-4 hover:underline"
+                  className="bg-orange-600 text-white px-1.5 py-1 rounded hover:bg-orange-500 text-sm font-medium"
                 >
                   Agregar
                 </button>

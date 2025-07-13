@@ -425,7 +425,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
           </button>
         </div>
         
-        <hr className="mb-4 border-gray-300 dark:border-gray-600"/>
+        <hr className="mb-3 border-gray-300 dark:border-gray-600"/>
         <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
           <div>
             <label htmlFor="fecha" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha</label>
@@ -548,7 +548,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
             </div>
           )}
           
-          <hr className="my-4 border-gray-300 dark:border-gray-600" />
+          <hr className="my-2 border-gray-300 dark:border-gray-600" />
           
           {/* Order Summary */}
           <div className="col-span-2">
@@ -569,7 +569,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
               <div className="space-y-2">
                 {/* Selected Products */}
                 {selectedProducts.map((product) => (
-                  <div key={product.id} className="flex justify-between items-center py-1">
+                  <div key={product.id} className="flex justify-between items-center py-0">
                     <span className="text-sm text-gray-700 dark:text-gray-300">
                       {product.name} x{product.quantity}
                     </span>
@@ -582,7 +582,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
                 <hr className="border-gray-300 dark:border-gray-600 my-2" />
                 
                 {/* Subtotal */}
-                <div className="flex justify-between items-center py-1">
+                <div className="flex justify-between items-center py-0">
                   <span className="text-sm text-gray-700 dark:text-gray-300">Subtotal</span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
                     {formatCurrency(subtotal)}
@@ -591,7 +591,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
                 
                 {/* Tip */}
                 {tipPercentage > 0 && (
-                  <div className="flex justify-between items-center py-1">
+                  <div className="flex justify-between items-center py-0">
                     <span className="text-sm text-gray-700 dark:text-gray-300">
                       Propina ({tipPercentage}%)
                     </span>
@@ -603,7 +603,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
                 
                 {/* Tax */}
                 {taxPercentage > 0 && (
-                  <div className="flex justify-between items-center py-1">
+                  <div className="flex justify-between items-center py-0">
                     <span className="text-sm text-gray-700 dark:text-gray-300">
                       ISV ({taxPercentage}%)
                     </span>
@@ -613,29 +613,28 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
                   </div>
                 )}
                 
-                <hr className="border-gray-300 dark:border-gray-600 my-2" />
-                
                 {/* Total */}
-                <div className="flex justify-between items-center py-2">
+                <div className="flex justify-between items-center py-0">
                   <span className="text-lg font-bold text-gray-900 dark:text-white">Total</span>
                   <span className="text-lg font-bold text-green-600 dark:text-green-400">
                     {formatCurrency(total)}
                   </span>
                 </div>
+                <hr className="my-2 border-gray-200 dark:border-gray-700" />
               </div>
             )}
           </div>
 
-        <div className="mt-6 flex justify-between col-span-2">
+        <div className="mt-2 flex justify-between col-span-2">
           <button
-            className="bg-orange-500 hover:bg-orange-700 text-white font-semibold py-1 px-2 rounded"
+            className="bg-orange-500 hover:bg-orange-700 text-white font-semibold py-0.5 px-1.5 rounded"
             onClick={() => setIsNotesModalOpen(true)}
             disabled={selectedProducts.length === 0}
           >
             Notas
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-0.5 px-1.5 rounded disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={selectedProducts.length === 0 || loading || processing}
             onClick={handleProcess}
           >
