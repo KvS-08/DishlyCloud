@@ -149,10 +149,10 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
             <FaTimes size={20} />
           </button>
           
-          <h2 className="text-xl font-bold mb-2 dark:text-white">Cerrar Caja</h2>
-          <hr className="mb-4 border-gray-300 dark:border-gray-600" />
+          <h2 className="text-xl font-bold mb-0 dark:text-white">Cerrar Caja</h2>
+          <hr className="mb-3 border-gray-300 dark:border-gray-600" />
           
-          <div className="flex space-x-4 mb-4">
+          <div className="flex space-x-4 mb-2">
             <div className="w-full">
               <label htmlFor="closeTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Hora de Cierre
@@ -173,7 +173,7 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
               </label>
               <div className="relative mt-1">
                 <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                  <span className="text-gray-500 sm:text-sm">
+                  <span className="text-gray-500 text-xs">
                     {currencySymbol}
                   </span>
                 </div>
@@ -181,7 +181,7 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
                   type="number"
                   id="expenses"
                   name="expenses"
-                  className="mt-1 block w-full pl-8 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 py-1"
+                  className="mt-1 block w-full pl-9 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 py-1"
                   placeholder="0.00"
                   step="0.01"
                   value={expenses.toFixed(2)}
@@ -198,7 +198,7 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
               </label>
               <div className="relative mt-1">
                 <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                  <span className="text-gray-500 sm:text-sm">
+                  <span className="text-gray-500 text-xs">
                     {currencySymbol}
                   </span>
                 </div>
@@ -206,7 +206,7 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
                   type="number"
                   id="totalSales"
                   name="totalSales"
-                  className="mt-1 block w-full pl-8 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 py-1"
+                  className="mt-1 block w-full pl-9 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 py-1"
                   placeholder="0.00"
                   step="0.01"
                   value={totalSales.toFixed(2)}
@@ -221,15 +221,15 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
               </label>
               <div className="relative mt-1">
                   <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                    <span className="text-gray-500 sm:text-sm">
-                      {currencySymbol}
-                    </span>
+                    <span className="text-gray-500 text-xs">
+                    {currencySymbol}
+                  </span>
                   </div>
                   <input
                     type="number"
                     id="utility"
                     name="utility"
-                    className="mt-1 block w-full pl-8 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 py-1"
+                    className="mt-1 block w-full pl-9 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 py-1"
                   placeholder="0.00"
                   step="0.01"
                   value={utility.toFixed(2)}
@@ -238,14 +238,14 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
               </div>
             </div>
           </div>
-          <div className="flex space-x-4 mb-4">
+          <div className="flex space-x-4 mb-2">
             <div className="w-full">
               <label htmlFor="cashClose" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Efectivo de Cierre
               </label>
               <div className="relative mt-1">
                 <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                  <span className="text-gray-500 sm:text-sm">
+                  <span className="text-gray-500 text-xs">
                     {currencySymbol}
                   </span>
                 </div>
@@ -253,7 +253,7 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
                   type="number"
                   id="cashClose"
                   name="cashClose"
-                  className="mt-1 block w-full pl-8 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="mt-1 block w-full pl-9 pr-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   placeholder="0.00"
                   step="0.01"
                   value={cashClose === 0 ? '' : cashClose.toString()}
@@ -269,9 +269,9 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
             <button
               onClick={handleSaveCloseCashier}
               disabled={!closeTime || cashClose === 0}
-              className={`text-red-600 hover:text-red-500 dark:text-red-700 dark:hover:text-red-500 font-bold py-2 px-4 rounded ${!closeTime || cashClose === 0 ? 'hidden' : ''}`}
+              className={`text-red-600 hover:text-red-500 dark:text-red-700 dark:hover:text-red-500 font-bold py-1 px-1 rounded ${!closeTime || cashClose === 0 ? 'hidden' : ''}`}
             >
-              Cerrar Caja
+              Cerrar
             </button>
           </div>
         </div>

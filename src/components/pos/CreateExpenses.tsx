@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Portal from '../ui/Portal';
 import { FaTimes } from 'react-icons/fa';
+import { useBusinessSettings } from '../../hooks/useBusinessSettings';
 
 interface CreateExpensesProps {
   isOpen: boolean;
@@ -12,6 +13,9 @@ const CreateExpenses: React.FC<CreateExpensesProps> = ({ isOpen, onClose, onSave
   const [showModal, setShowModal] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [expenseDate, setExpenseDate] = useState('');
+  const { settings, loading } = useBusinessSettings();
+
+  const currencySymbol = settings?.currency || '$';
 
   useEffect(() => {
     const now = new Date();
@@ -49,27 +53,37 @@ const CreateExpenses: React.FC<CreateExpensesProps> = ({ isOpen, onClose, onSave
           <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="expenseDate" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Fecha</label>
-              <input type="datetime-local" id="expenseDate" value={expenseDate} onChange={(e) => setExpenseDate(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1" />
+              <input type="datetime-local" id="expenseDate" value={expenseDate} onChange={(e) => setExpenseDate(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1 pl-2" />
             </div>
             <div>
               <label htmlFor="expenseName" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Nombre del gasto</label>
-              <input type="text" id="expenseName" placeholder="Nombre del gasto" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1" />
+              <input type="text" id="expenseName" placeholder="Nombre del gasto" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1 pl-2" />
             </div>
             <div>
               <label htmlFor="expenseType" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Tipo de gasto</label>
-              <input type="text" id="expenseType" placeholder="Tipo de gasto" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1" />
+              <input type="text" id="expenseType" placeholder="Tipo de gasto" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1 pl-2" />
             </div>
             <div>
               <label htmlFor="quantity" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Cantidad</label>
-              <input type="number" id="quantity" placeholder="0.00" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1" />
+              <input type="number" id="quantity" placeholder="0.00" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1 pl-2" />
             </div>
             <div>
               <label htmlFor="value" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Valor</label>
-              <input type="number" id="value" placeholder="0.00" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1" />
+              <div className="relative mt-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                  <span className="text-gray-500 dark:text-gray-400 text-xs">{currencySymbol}</span>
+                </div>
+                <input type="number" id="value" placeholder="0.00" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1 pl-9" />
+              </div>
             </div>
             <div>
               <label htmlFor="total" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Total</label>
-              <input type="number" id="total" placeholder="0.00" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1" />
+              <div className="relative mt-1">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                  <span className="text-gray-500 dark:text-gray-400 text-xs">{currencySymbol}</span>
+                </div>
+                <input type="number" id="total" placeholder="0.00" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1 pl-9" />
+              </div>
             </div>
           </div>
           <hr className="my-3 border-gray-300 dark:border-gray-600" />
