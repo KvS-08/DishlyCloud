@@ -514,7 +514,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                     No hay ingredientes disponibles. Agrega ingredientes en la sección de inventario.
                   </p>
                 ) : (
-                  <div className="grid grid-cols-2 gap-0.5">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-0.5">
                     {ingredients.map((ingredient) => (
                       <div key={ingredient.id} className="flex items-center">
                         <label className="flex items-center">
