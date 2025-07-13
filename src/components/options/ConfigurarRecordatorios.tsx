@@ -244,7 +244,7 @@ export const ConfigurarRecordatorios = React.memo(() => {
                 <label className="block text-xs font-medium text-gray-900 dark:text-white mb-2">
                   Notificar a estos roles
                 </label>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {availableRoles.map((role) => (
                     <label key={role.value} className="flex items-center">
                       <input
