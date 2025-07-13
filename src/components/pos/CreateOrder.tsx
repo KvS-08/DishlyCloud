@@ -419,7 +419,7 @@ const CreateOrder: React.FC<CreateOrderProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
+            className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
           >
             <FaTimes size={20} />
           </button>

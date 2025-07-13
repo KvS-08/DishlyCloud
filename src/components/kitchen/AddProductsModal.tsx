@@ -326,27 +326,27 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
   return (
     <Portal>
       <div className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 ${animationClass}`}>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-2/3 xl:w-1/2 relative max-h-[90vh] overflow-y-auto">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 md:w-2/5 lg:w-1/2 xl:w-2/5 relative max-h-[90vh] overflow-y-auto">
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
+            className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
           >
             <FaTimes size={20} />
           </button>
           
-          <h2 className="text-lg font-bold mb-2 dark:text-white">Agregar Producto</h2>
-          <hr className="mb-4 border-gray-300 dark:border-gray-600" />
+          <h2 className="text-lg font-bold mb-0 dark:text-white">Agregar Producto</h2>
+          <hr className="mb-3 border-gray-300 dark:border-gray-600" />
           
           <div className="grid grid-cols-1 gap-4">
             {/* First Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               <div className="mb-2">
                 <label htmlFor="productName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Nombre de Producto
+                  Nombre
                 </label>
                 <div className="relative mt-1">
                   <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                    <IoFastFoodSharp className="h-4 w-5 text-gray-400" aria-hidden="true" />
+                    <IoFastFoodSharp className="h-3 w-3 text-gray-400" aria-hidden="true" />
                   </div>
                   <input
                     type="text"
@@ -354,7 +354,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                     name="productName"
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
-                    className="mt-1 block w-full pl-7 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-sm text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
+                    className="mt-1 block w-full pl-5 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
                     placeholder="Ej. Pizza, Hamburguesa, Refresco"
                   />
                 </div>
@@ -366,14 +366,14 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                 </label>
                 <div className="relative mt-1">
                   <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                    <BiSolidFoodMenu className="h-4 w-5 text-gray-400" aria-hidden="true" />
+                    <BiSolidFoodMenu className="h-3 w-3 text-gray-400" aria-hidden="true" />
                   </div>
                   <select
                     id="productCategory"
                     name="productCategory"
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="mt-1 block w-full pl-7 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-sm text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
+                    className="mt-1 block w-full pl-4 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
                   >
                     <option value="">Selecciona una categoría</option>
                     {categories.map((category) => (
@@ -384,17 +384,48 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                   </select>
                 </div>
               </div>
+
+              {/* Image Upload */}
+              <div className="mb-0">
+                <label htmlFor="productImage" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Imagen (máx. 1MB)
+                </label>
+                <div className="mt-0.5 flex items-center space-x-4">
+                  {imagePreview && (
+                    <div className="flex-shrink-0 h-16 w-16 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-700">
+                      <img src={imagePreview} alt="Preview" className="h-full w-full object-cover" />
+                    </div>
+                  )}
+                  <div className="flex-1">
+                    <input
+                      type="file"
+                      id="productImageUpload"
+                      className="hidden"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                    />
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-1.5 py-0.5 border border-gray-300 rounded-md shadow-sm text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 dark:bg-gray-600 dark:text-gray-300 dark:border-gray-500 dark:hover:bg-gray-500"
+                      onClick={() => document.getElementById('productImageUpload')?.click()}
+                    >
+                      <FaUpload className="h-2.5 w-2.5 mr-2" />
+                      {imagePreview ? 'Cambiar Imagen' : 'Subir Imagen'}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Second Row */}
-            <div className="grid grid-cols-3 sm:grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               <div className="mb-2">
                 <label htmlFor="preparationTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Tiempo Preparación (min)
+                  Tiempo Preparación
                 </label>
                 <div className="relative mt-1">
                   <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                    <MdAccessTime className="h-4 w-5 text-gray-400" aria-hidden="true" />
+                    <MdAccessTime className="h-3 w-3 text-gray-400" aria-hidden="true" />
                   </div>
                   <input
                     type="number"
@@ -402,20 +433,20 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                     name="preparationTime"
                     value={preparationTime}
                     onChange={(e) => setPreparationTime(e.target.value)}
-                    className="mt-1 block w-full pl-7 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-sm text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
+                    className="mt-1 block w-full pl-5 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
                     placeholder="Ej. 15"
                     min="1"
                   />
                 </div>
               </div>
 
-              <div className="mb-2">
+              <div className="mb-0">
                 <label htmlFor="productPrice" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Precio
                 </label>
                 <div className="relative mt-1">
                   <div className="absolute inset-y-0 left-0 pl-1 flex items-center pointer-events-none">
-                    <span className="text-gray-400 text-sm">{settings?.currency || 'HNL'}</span>
+                    <span className="text-gray-400 text-xs">{settings?.currency || 'HNL'}</span>
                   </div>
                   <input
                     type="number"
@@ -423,7 +454,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                     name="productPrice"
                     value={productPrice}
                     onChange={(e) => setProductPrice(e.target.value)}
-                    className="mt-1 block w-full pl-10 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-sm text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
+                    className="mt-1 block w-full pl-9 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
                     placeholder="0.00"
                     step="0.01"
                     min="0"
@@ -431,7 +462,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                 </div>
               </div>
 
-              <div className="mb-2">
+              <div className="mb-0">
                 <label htmlFor="productType" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Tipo de Producto
                 </label>
@@ -441,7 +472,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                     name="productType"
                     value={productType}
                     onChange={(e) => setProductType(e.target.value)}
-                    className="mt-1 block w-full pl-2 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-sm text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
+                    className="mt-1 block w-full pl-2 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
                   >
                     <option value="individual">Individual</option>
                     <option value="compuesto">Compuesto</option>
@@ -450,44 +481,13 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
               </div>
             </div>
 
-            {/* Image Upload */}
-            <div className="mb-2">
-              <label htmlFor="productImage" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Imagen del Producto (máx. 1MB)
-              </label>
-              <div className="mt-1 flex items-center space-x-4">
-                {imagePreview && (
-                  <div className="flex-shrink-0 h-16 w-16 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-700">
-                    <img src={imagePreview} alt="Preview" className="h-full w-full object-cover" />
-                  </div>
-                )}
-                <div className="flex-1">
-                  <input
-                    type="file"
-                    id="productImageUpload"
-                    className="hidden"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                  />
-                  <button
-                    type="button"
-                    className="inline-flex items-center px-3 py-1 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 dark:bg-gray-600 dark:text-gray-300 dark:border-gray-500 dark:hover:bg-gray-500"
-                    onClick={() => document.getElementById('productImageUpload')?.click()}
-                  >
-                    <FaUpload className="h-4 w-4 mr-2" />
-                    {imagePreview ? 'Cambiar Imagen' : 'Subir Imagen'}
-                  </button>
-                </div>
-              </div>
-            </div>
-
             {/* Description */}
-            <div className="mb-2">
+            <div className="mb-0">
               <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Descripción
               </label>
               <div className="relative mt-1">
-                <div className="absolute top-2 left-0 pl-1 flex items-center pointer-events-none">
+                <div className="absolute top-1 left-0 pl-0.5 flex items-center pointer-events-none">
                   <MdStickyNote2 className="h-4 w-5 text-gray-400" aria-hidden="true" />
                 </div>
                 <textarea
@@ -495,7 +495,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                   name="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="mt-1 block w-full pl-7 pr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-sm text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full pl-6 pr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-sm text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   placeholder="Descripción del producto"
                   rows={2}
                 ></textarea>
@@ -503,7 +503,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
             </div>
 
             {/* Ingredients Selection */}
-            <div className="mb-4">
+            <div className="mb-1">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 <PiBowlFoodFill className="inline h-4 w-5 text-gray-400 mr-1" />
                 Ingredientes
@@ -514,7 +514,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                     No hay ingredientes disponibles. Agrega ingredientes en la sección de inventario.
                   </p>
                 ) : (
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-0.5">
                     {ingredients.map((ingredient) => (
                       <div key={ingredient.id} className="flex items-center">
                         <label className="flex items-center">
@@ -524,8 +524,8 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                             onChange={() => handleIngredientToggle(ingredient.id)}
                             className="h-3 w-3 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                           />
-                          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-                            {ingredient.name} ({ingredient.unit})
+                          <span className="ml-2 text-xs text-gray-700 dark:text-gray-300">
+                            {ingredient.name}
                           </span>
                         </label>
                         
@@ -537,7 +537,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                             step="0.01"
                             value={ingredientQuantities[ingredient.id] || 1}
                             onChange={(e) => handleQuantityChange(ingredient.id, parseFloat(e.target.value) || 1)}
-                            className="ml-2 w-16 text-xs border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            className="ml-2 w-12 text-xs border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white pl-1.5"
                           />
                         )}
                       </div>
@@ -553,11 +553,11 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
           )}
           
           {isButtonVisible && (
-            <div className="flex justify-end space-x-3 -mb-3">
+            <div className="flex justify-end space-x-3">
               <button
                 onClick={handleSave}
                 disabled={loading}
-                className="text-green-600 hover:text-green-500 no-underline disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-green-600 text-white px-1.5 py-0.5 rounded-md hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Agregando...' : 'Agregar'}
               </button>

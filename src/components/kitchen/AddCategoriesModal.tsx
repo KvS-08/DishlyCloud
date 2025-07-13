@@ -98,15 +98,15 @@ const AddCategoriesModal: React.FC<AddCategoriesModalProps> = ({
       <div className={`bg-white dark:bg-gray-800 p-6 pb-2 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 relative ${animationClass}`}>
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
+          className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
         >
           <FaTimes size={20} />
         </button>
         
-        <h2 className="text-lg font-bold mb-1 dark:text-white">Agregar Categoría</h2>
-        <hr className="mb-4 border-gray-300 dark:border-gray-600" />
+        <h2 className="text-lg font-bold mb-0 dark:text-white">Agregar Categoría</h2>
+        <hr className="mb-2 border-gray-300 dark:border-gray-600" />
         
-        <div className="mb-4">
+        <div className="mb-3">
           <label htmlFor="categoryName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Nombre de la Categoría
           </label>
@@ -127,7 +127,7 @@ const AddCategoriesModal: React.FC<AddCategoriesModalProps> = ({
         </div>
         
         {categoryName && (
-          <hr className="mb-0 border-gray-300 dark:border-gray-600" />
+          <hr className="mb-1 border-gray-300 dark:border-gray-600" />
         )}
 
         <div className="flex justify-end space-x-3">
@@ -135,9 +135,9 @@ const AddCategoriesModal: React.FC<AddCategoriesModalProps> = ({
             <button
               onClick={handleSave}
               disabled={loading}
-              className="text-green-600 hover:text-green-500 font-bold py-2 px-4 rounded bg-transparent border-none underline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="text-white hover:bg-green-500 font-bold py-0.5 px-1.5 rounded bg-green-600 border-none underline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Guardando...' : 'Guardar'}
+              {loading ? 'Agregando...' : 'Agregar'}
             </button>
           )}
         </div>

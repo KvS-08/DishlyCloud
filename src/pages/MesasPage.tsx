@@ -145,14 +145,14 @@ const MesasPage = () => {
         <h2 className="text-2xl font-bold">Espacios ({tables.length})</h2>
         <div className="flex space-x-2">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-0.5 px-1.5 rounded"
             onClick={toggleEditMode}
           >
             <MdEdit className="inline-block mr-1" />
             {isEditMode ? 'Terminar' : 'Editar'}
           </button>
           <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-0.5 px-1.5 rounded"
             onClick={() => setIsAddTableModalOpen(true)}
           >
             Agregar

@@ -268,7 +268,7 @@ const TableDetailsModal: React.FC<TableDetailsModalProps> = ({
         <div className={`bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 relative max-h-[80vh] overflow-y-auto ${animationClass}`}>
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
+            className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
           >
             <FaTimes size={20} />
           </button>
@@ -346,13 +346,13 @@ const TableDetailsModal: React.FC<TableDetailsModalProps> = ({
               
               <div className="flex justify-between mt-2">
                 <button 
-                  className="bg-green-600 hover:bg-green-500 text-white text-sm py-1 px-2 rounded-md transition-colors text-center no-underline"
+                  className="bg-green-600 hover:bg-green-500 text-white text-sm py-1 px-1.5 rounded-md transition-colors text-center no-underline"
                   onClick={() => setIsAddProductsModalOpen(true)}
                 >
                   Agregar
                 </button>
                 <button 
-                  className="bg-blue-600 hover:bg-blue-500 text-white text-sm py-1 px-2 rounded-md transition-colors text-center no-underline"
+                  className="bg-blue-600 hover:bg-blue-500 text-white text-sm py-1 px-1.5 rounded-md transition-colors text-center no-underline"
                   onClick={() => setIsPayOrderModalOpen(true)}
                   disabled={orders.length === 0}
                 >

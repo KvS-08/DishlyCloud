@@ -75,7 +75,7 @@ const Opencashier: React.FC<OpencashierProps> = ({ isOpen, onClose, onSave }) =>
         <div className={`bg-white dark:bg-gray-800 pt-6 px-6 pb-3 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 relative ${animationClass}`}>
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
+            className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
           >
             <FaTimes size={20} />
           </button>
