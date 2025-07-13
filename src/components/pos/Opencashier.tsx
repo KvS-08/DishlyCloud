@@ -148,9 +148,9 @@ const Opencashier: React.FC<OpencashierProps> = ({ isOpen, onClose, onSave }) =>
             {cashierDateTime && cashierName && cashInDrawer ? (
               <button
                 onClick={handleOpenCashier}
-                className="text-green-600 hover:text-green-500 dark:text-green-500 dark:hover:text-green-400"
+                className="bg-green-500 text-white font-bold py-1 px-2 rounded hover:bg-green-400 hover:text-white"
               >
-                Aperturar
+                Abrir
               </button>
             ) : null}
           </div>

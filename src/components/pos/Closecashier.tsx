@@ -263,13 +263,13 @@ const Closecashier: React.FC<ClosecashierProps> = ({ isOpen, onClose, onSave }) 
             </div>
           </div>
           
-          <hr className={`mb-0 border-gray-300 dark:border-gray-600 ${!closeTime || cashClose === 0 ? 'hidden' : ''}`} />
+          <hr className={`mb-1 border-gray-300 dark:border-gray-600 ${!closeTime || cashClose === 0 ? 'hidden' : ''}`} />
 
           <div className="flex justify-end space-x-3">
             <button
               onClick={handleSaveCloseCashier}
               disabled={!closeTime || cashClose === 0}
-              className={`text-red-600 hover:text-red-500 dark:text-red-700 dark:hover:text-red-500 font-bold py-1 px-1 rounded ${!closeTime || cashClose === 0 ? 'hidden' : ''}`}
+              className={`bg-red-600 text-white font-bold py-1 px-2 rounded hover:bg-red-500 hover:text-white ${!closeTime || cashClose === 0 ? 'hidden' : ''}`} 
             >
               Cerrar
             </button>

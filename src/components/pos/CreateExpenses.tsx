@@ -13,7 +13,24 @@ const CreateExpenses: React.FC<CreateExpensesProps> = ({ isOpen, onClose, onSave
   const [showModal, setShowModal] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [expenseDate, setExpenseDate] = useState('');
+  const [hasData, setHasData] = useState(false);
+  const [expenseName, setExpenseName] = useState('');
+  const [expenseType, setExpenseType] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [value, setValue] = useState('');
+  const [total, setTotal] = useState('');
   const { settings, loading } = useBusinessSettings();
+
+  useEffect(() => {
+    const hasEnteredData = !!(
+      expenseName.trim() ||
+      expenseType.trim() ||
+      quantity.trim() ||
+      value.trim() ||
+      total.trim()
+    );
+    setHasData(hasEnteredData);
+  }, [expenseName, expenseType, quantity, value, total]);
 
   const currencySymbol = settings?.currency || '$';
 
@@ -57,7 +74,14 @@ const CreateExpenses: React.FC<CreateExpensesProps> = ({ isOpen, onClose, onSave
             </div>
             <div>
               <label htmlFor="expenseName" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Nombre del gasto</label>
-              <input type="text" id="expenseName" placeholder="Nombre del gasto" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1 pl-2" />
+              <input
+                type="text"
+                id="expenseName"
+                placeholder="Nombre del gasto"
+                value={expenseName}
+                onChange={(e) => setExpenseName(e.target.value)}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-xs p-1 pl-2"
+              />
             </div>
             <div>
               <label htmlFor="expenseType" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Tipo de gasto</label>
@@ -86,13 +110,16 @@ const CreateExpenses: React.FC<CreateExpensesProps> = ({ isOpen, onClose, onSave
               </div>
             </div>
           </div>
-          <hr className="my-3 border-gray-300 dark:border-gray-600" />
-
-          <div className="flex justify-end">
-            <button type="submit" className="inline-flex justify-center rounded-md border border-transparent bg-green-700 px-2 py-1 text-sm font-medium text-white shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-offset-gray-800">
-              Agregar
-            </button>
-          </div>
+          {hasData && (
+            <>
+              <hr className="my-2 border-gray-300 dark:border-gray-600" />
+              <div className="flex justify-end">
+                <button type="submit" className="inline-flex justify-center rounded-md border border-transparent bg-green-700 px-1 py-1 text-sm font-medium text-white shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-offset-gray-800">
+                  Agregar
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Portal>
