@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { NotificationBell } from '../ui/NotificationBell';
-import { Avatar } from '../ui/Avatar';
+
 import { useAuth } from '../../hooks/useAuth';
 import { useSidebarStore } from '../../stores/sidebarStore';
 import { Link } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { LogOut, Settings } from 'lucide-react';
 import { FaBoxesPacking, FaChartColumn, FaCircleDollarToSlot } from 'react-icons/fa6';
 import { MdAddBusiness, MdDashboardCustomize } from 'react-icons/md';
 import { HiTicket } from 'react-icons/hi2';
+import { IoIosBeer } from 'react-icons/io';
 
 
 export const Header: React.FC = () => {
@@ -71,8 +72,8 @@ export const Header: React.FC = () => {
           </Link>
         </>
       );
-    } else {
-      // Regular roles (admin, cashier)
+    } else if (['admin', 'cashier', 'bartender'].includes(user?.role?.toLowerCase() || '')) {
+      // Regular roles (admin, cashier, bartender)
       return (
         <>
           <Link to="/inicio" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
@@ -84,12 +85,17 @@ export const Header: React.FC = () => {
           <Link to="/cuentas" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
             <MdTableRestaurant className="h-6 w-6" />
           </Link>
+          <Link to="/bar" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
+            <IoIosBeer className="h-6 w-6" />
+          </Link>
           <Link to="/kitchen" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
             <ChefHat className="h-6 w-6" />
           </Link>
-
         </>
       );
+    } else {
+      // Default for other roles
+      return null;
     }
   };
 
@@ -145,15 +151,7 @@ export const Header: React.FC = () => {
       ${collapsed ? 'left-16' : 'md:left-48 left-0'}
     `}>
       <div className="flex items-center gap-4">
-        {user?.business?.logo_url ? (
-          <img 
-            src={user.business.logo_url} 
-            alt="Logo del negocio" 
-            className="h-8 w-8 object-cover rounded-md"
-          />
-        ) : (
-          <ChefHat className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-        )}
+
 
         <div className="flex items-center gap-4 mr-0">
           {renderNavLinks()}
@@ -165,16 +163,22 @@ export const Header: React.FC = () => {
         <NotificationBell />
         <ThemeToggle />
         
+
+        
         <div className="relative" ref={dropdownRef}>
           <div 
             className="flex items-center gap-2 cursor-pointer" 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
-            <Avatar 
-              src={user?.avatar_url} 
-              alt={user?.full_name || 'User'} 
-              fallback={user?.full_name || 'User'} 
-            />
+            {user?.business?.logo_url ? (
+              <img 
+                src={user.business.logo_url} 
+                alt="Logo del negocio" 
+                className="h-8 w-8 object-cover rounded-md"
+              />
+            ) : (
+              <ChefHat className="h-8 w-8 text-primary-600 dark:text-primary-400" />
+            )}
           </div>
 
           {isDropdownOpen && (

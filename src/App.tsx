@@ -15,6 +15,7 @@ import { LoginPage } from './pages/LoginPage';
 import InicioPage from './pages/InicioPage';
 
 import { KitchenPage } from './pages/KitchenPage';
+import { BarPage } from './pages/BarPage';
 import PosPage from './pages/PosPage';
 import OptionsPage from './pages/OptionsPage';
 import MenuPage from './pages/MenuPage';
@@ -270,6 +271,20 @@ const AppRoutes: React.FC = () => {
                 transition={pageTransition}
               >
                 <KitchenPage />
+              </motion.div>
+            }
+          />
+          <Route
+            path="bar"
+            element={
+              <motion.div
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <BarPage />
               </motion.div>
             }
           />

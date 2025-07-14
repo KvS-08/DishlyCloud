@@ -5,6 +5,7 @@ import {
   LogOut
 } from 'lucide-react';
 import { MdAddBusiness } from 'react-icons/md';
+import { IoIosBeer } from 'react-icons/io';
 import { HiTicket } from 'react-icons/hi2';
 
 import { TbCashRegister } from 'react-icons/tb';
@@ -108,6 +109,7 @@ export const Sidebar: React.FC = () => {
           <NavItem to="/inicio" icon={MdDashboardCustomize} label="Inicio" />
             <NavItem to="/pos" icon={TbCashRegister} label="POS" />
           <NavItem to="/cuentas" icon={MdTableRestaurant} label="Mesas" />
+          <NavItem to="/bar" icon={IoIosBeer} label="Bar" />
           <NavItem to="/kitchen" icon={ChefHat} label="Cocina" />
           <NavItem to="/menu" icon={BsFillMenuButtonWideFill} label="Menú" />
           <NavItem to="/inventory" icon={FaBoxesPacking} label="Inventario" />
@@ -136,6 +138,7 @@ export const Sidebar: React.FC = () => {
 
           <NavItem to="/pos" icon={TbCashRegister} label="POS" />
           <NavItem to="/cuentas" icon={MdTableRestaurant} label="Mesas" />
+          <NavItem to="/bar" icon={IoIosBeer} label="Bar" />
           <NavItem to="/kitchen" icon={ChefHat} label="Cocina" />
           <NavItem to="/menu" icon={BsFillMenuButtonWideFill} label="Menú" />
           <NavItem to="/inventory" icon={FaBoxesPacking} label="Inventario" />
@@ -148,6 +151,7 @@ export const Sidebar: React.FC = () => {
         <>
           <NavItem to="/pos" icon={TbCashRegister} label="POS" />
           <NavItem to="/cuentas" icon={MdTableRestaurant} label="Mesas" />
+          <NavItem to="/bar" icon={IoIosBeer} label="Bar" />
           <NavItem to="/kitchen" icon={ChefHat} label="Cocina" />
           <NavItem to="/menu" icon={BsFillMenuButtonWideFill} label="Menú" />
           <NavItem to="/inventory" icon={FaBoxesPacking} label="Inventario" />

@@ -8,9 +8,13 @@ import { supabase } from '../lib/supabase';
 import { useBusinessSettings } from '../hooks/useBusinessSettings';
 import { Line, Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Title, Tooltip, Legend, Filler } from 'chart.js';
-import { FaChartLine, FaChartBar, FaChartPie, FaShoppingCart, FaUserClock, FaUsers } from 'react-icons/fa';
+import { FaChartLine, FaChartBar, FaChartPie, FaUserClock, FaUsers } from 'react-icons/fa';
+import { GiReceiveMoney, GiMoneyStack } from 'react-icons/gi';
 import { MdRestaurantMenu } from 'react-icons/md';
-import { FaCircleDollarToSlot } from 'react-icons/fa6';
+import { FaCircleDollarToSlot } from "react-icons/fa6";
+import { PiBowlFoodFill } from "react-icons/pi";
+import { MdTimer } from "react-icons/md";
+import { IoTicketSharp } from 'react-icons/io5';
 
 // Register ChartJS components
 ChartJS.register(
@@ -147,7 +151,7 @@ const ReportesPage: React.FC = () => {
         case 'employees':
           await fetchEmployeesData();
           break;
-        case 'orders':
+        case 'utileria':
           await fetchOrdersData();
           break;
       }
@@ -937,7 +941,7 @@ const ReportesPage: React.FC = () => {
               <option value="products">Productos</option>
               <option value="cashier">Aperturas y Cierres</option>
               <option value="employees">Empleados</option>
-              <option value="orders">Órdenes</option>
+              <option value="utileria">Utileria</option>
             </select>
             
             <select
@@ -956,66 +960,66 @@ const ReportesPage: React.FC = () => {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+        <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Ventas Totales</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Ventas</p>
               <p className="text-xl font-bold text-gray-900 dark:text-white">{formatCurrency(summaryMetrics.totalSales)}</p>
             </div>
-            <div className="p-2 rounded-md bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400">
+            <div className="p-1 rounded-md bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400">
               <FaCircleDollarToSlot className="h-5 w-5 text-green-500" />
             </div>
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+        <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Gastos Totales</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Gastos</p>
               <p className="text-xl font-bold text-gray-900 dark:text-white">{formatCurrency(summaryMetrics.totalExpenses)}</p>
             </div>
-            <div className="p-2 rounded-md bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400">
+            <div className="p-1 rounded-md bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400">
               <FaCircleDollarToSlot className="h-5 w-5 text-red-500" />
             </div>
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+        <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Órdenes</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">{summaryMetrics.totalOrders}</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Utileria</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-white">{summaryMetrics.totalUtileria}</p>
             </div>
-            <div className="p-2 rounded-md bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
-              <FaShoppingCart className="h-5 w-5" />
-            </div>
+            <div className="p-1 rounded-md bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                <GiReceiveMoney className="h-5 w-5" />
+              </div>
           </div>
         </div>
         
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+        <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Ticket Promedio</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Ganancia</p>
               <p className="text-xl font-bold text-gray-900 dark:text-white">{formatCurrency(summaryMetrics.averageTicket)}</p>
             </div>
-            <div className="p-2 rounded-md bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
-              <FaShoppingCart className="h-5 w-5" />
+            <div className="p-1 rounded-md bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400">
+              <GiMoneyStack className="h-5 w-5" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Additional Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Producto Más Vendido</p>
-              <p className="text-lg font-bold text-gray-900 dark:text-white">{summaryMetrics.topProduct || 'N/A'}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{formatCurrency(summaryMetrics.topProductSales)}</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Ordenes Atendidas</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-white">{summaryMetrics.totalOrders || 'N/A'}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400"></p>
             </div>
-            <div className="p-2 rounded-md bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400">
-              <MdRestaurantMenu className="h-5 w-5" />
+            <div className="p-1 rounded-md bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
+              <IoTicketSharp className="h-5 w-5" />
             </div>
           </div>
         </div>
@@ -1023,12 +1027,24 @@ const ReportesPage: React.FC = () => {
         <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Empleado con Más Ventas</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Tiempo de preparación</p>
               <p className="text-lg font-bold text-gray-900 dark:text-white">{summaryMetrics.topEmployee || 'N/A'}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{formatCurrency(summaryMetrics.topEmployeeSales)}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400"></p>
             </div>
-            <div className="p-2 rounded-md bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400">
-              <FaUsers className="h-5 w-5" />
+            <div className="p-1 rounded-md bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400">
+              <MdTimer className="h-5 w-5" />
+            </div>
+          </div>
+        </div>
+        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Producto Más Vendido</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-white">{summaryMetrics.topProduct || 'N/A'}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400"></p>
+            </div>
+            <div className="p-1 rounded-md bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400">
+              <PiBowlFoodFill className="h-5 w-5 text-orange-600" />
             </div>
           </div>
         </div>
@@ -1042,7 +1058,7 @@ const ReportesPage: React.FC = () => {
           {reportType === 'products' && <><FaChartBar className="mr-2 text-blue-500" /> Reporte de Productos</>}
           {reportType === 'cashier' && <><FaChartBar className="mr-2 text-purple-500" /> Reporte de Aperturas y Cierres</>}
           {reportType === 'employees' && <><FaChartBar className="mr-2 text-teal-500" /> Métricas de Empleados</>}
-          {reportType === 'orders' && <><FaChartLine className="mr-2 text-orange-500" /> Reporte de Órdenes</>}
+          {reportType === 'utileria' && <><FaChartLine className="mr-2 text-orange-500" /> Reporte de Utileria</>}
         </h3>
         
         {loading ? (
@@ -1104,7 +1120,7 @@ const ReportesPage: React.FC = () => {
               }} />
             )}
             
-            {reportType === 'orders' && (
+            {reportType === 'utileria' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="h-64">
                   <Line data={ordersData.line} options={{

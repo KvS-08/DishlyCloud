@@ -48,6 +48,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
   const [preparationTime, setPreparationTime] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [description, setDescription] = useState('');
+  const [preparationPlace, setPreparationPlace] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const [productImage, setProductImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -88,6 +89,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
     setImagePreview(null);
     setProductType('individual');
     setIngredientQuantities({});
+    setPreparationPlace('');
   };
 
   const loadCategories = async () => {
@@ -270,7 +272,8 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
         image_url: imageUrl,
         is_available: true,
         includes_tax: false,
-        product_type: productType
+        product_type: productType,
+        preparation_place: preparationPlace
       };
 
       const { data: menuItem, error: menuError } = await supabase
@@ -339,9 +342,9 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
           
           <div className="grid grid-cols-1 gap-4">
             {/* First Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2">
               <div className="mb-2">
-                <label htmlFor="productName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="productName" className="block text-xs font-medium text-gray-700 dark:text-gray-300">
                   Nombre
                 </label>
                 <div className="relative mt-1">
@@ -361,7 +364,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
               </div>
 
               <div className="mb-2">
-                <label htmlFor="productCategory" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="productCategory" className="block text-xs font-medium text-gray-700 dark:text-gray-300">
                   Categoría
                 </label>
                 <div className="relative mt-1">
@@ -375,7 +378,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     className="mt-1 block w-full pl-4 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
                   >
-                    <option value="">Selecciona una categoría</option>
+                    <option value="">Escoge una categoría</option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.id}>
                         {category.name}
@@ -385,9 +388,29 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                 </div>
               </div>
 
+              <div className="mb-0">
+                <label htmlFor="preparationPlace" className="block text-xs font-medium text-gray-700 dark:text-gray-300">
+                  Lugar de Preparación
+                </label>
+                <div className="relative mt-1">
+                  <select
+                    id="preparationPlace"
+                    name="preparationPlace"
+                    value={preparationPlace}
+                    onChange={(e) => setPreparationPlace(e.target.value)}
+                    className="mt-1 block w-full pl-1 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
+                    required
+                  >
+                    <option value="">Escoge un lugar</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Cocina">Cocina</option>
+                  </select>
+                </div>
+              </div>
+
               {/* Image Upload */}
               <div className="mb-0">
-                <label htmlFor="productImage" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="productImage" className="block text-xs font-medium text-gray-700 dark:text-gray-300">
                   Imagen (máx. 1MB)
                 </label>
                 <div className="mt-0.5 flex items-center space-x-4">
@@ -419,8 +442,8 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
 
             {/* Second Row */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              <div className="mb-2">
-                <label htmlFor="preparationTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <div className="mb-0">
+                <label htmlFor="preparationTime" className="block text-xs font-medium text-gray-700 dark:text-gray-300">
                   Tiempo Preparación
                 </label>
                 <div className="relative mt-1">
@@ -441,7 +464,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
               </div>
 
               <div className="mb-0">
-                <label htmlFor="productPrice" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="productPrice" className="block text-xs font-medium text-gray-700 dark:text-gray-300">
                   Precio
                 </label>
                 <div className="relative mt-1">
@@ -463,7 +486,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
               </div>
 
               <div className="mb-0">
-                <label htmlFor="productType" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="productType" className="block text-xs font-medium text-gray-700 dark:text-gray-300">
                   Tipo de Producto
                 </label>
                 <div className="relative mt-1">
@@ -472,7 +495,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                     name="productType"
                     value={productType}
                     onChange={(e) => setProductType(e.target.value)}
-                    className="mt-1 block w-full pl-2 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
+                    className="mt-1 block w-full pl-1 pr-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-0.5"
                   >
                     <option value="individual">Individual</option>
                     <option value="compuesto">Compuesto</option>
@@ -483,7 +506,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
 
             {/* Description */}
             <div className="mb-0">
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label htmlFor="description" className="block text-xs font-medium text-gray-700 dark:text-gray-300">
                 Descripción
               </label>
               <div className="relative mt-1">
@@ -495,7 +518,7 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
                   name="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="mt-1 block w-full pl-6 pr-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-sm text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full pl-6 pr-2 py-0.5 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-100 text-xs text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   placeholder="Descripción del producto"
                   rows={2}
                 ></textarea>
