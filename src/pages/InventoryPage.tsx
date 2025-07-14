@@ -26,6 +26,7 @@ interface InventoryItem {
 
 
   stock_actual: number | null;
+  category: string; // Add category field
 }
 
 const InventoryPage: React.FC = () => {
@@ -36,6 +37,7 @@ const InventoryPage: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
   const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All'); // New state for category filter
   const [loading, setLoading] = useState(false);
 
   // Load all inventory items when component mounts
@@ -138,10 +140,12 @@ const InventoryPage: React.FC = () => {
 
   const inventoryValue = calculateInventoryValue();
 
-  // Filter inventory items based on search term
-  const filteredInventoryItems = inventoryItems.filter(item => 
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter inventory items based on search term and category
+  const filteredInventoryItems = inventoryItems.filter(item => {
+    const matchesSearchTerm = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
+    return matchesSearchTerm && matchesCategory;
+  });
 
   return (
     <div className="space-y-6 md:ml-32 pt-4 md:pt-0 md:-mt-10">
@@ -197,12 +201,16 @@ const InventoryPage: React.FC = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <button
-          onClick={() => { /* TODO: Implement Categories functionality */ }}
-          className="px-1.5 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-700 dark:hover:bg-blue-800"
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="px-1 py-1.5 border border-gray-300 rounded-md bg-white text-black dark:bg-gray-700 dark:border-gray-600 dark:text-white"
         >
-          Categorias
-        </button>
+          <option value="All">Todas las Categorías</option>
+          <option value="Comida">Comida</option>
+          <option value="Bebidas">Bebidas</option>
+          <option value="Alcohol">Alcohol</option>
+        </select>
         <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2.5 px-1.5 rounded text-xs md:py-2 md:px-1.5 md:text-sm whitespace-nowrap"
           onClick={handleOpenModal}

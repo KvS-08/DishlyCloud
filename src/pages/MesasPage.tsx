@@ -51,15 +51,25 @@ const MesasPage = () => {
         return;
       }
 
-      // Sort tables: occupied first, then numerically by name
+      // Sort tables: occupied first, then alphabetically and numerically by name
       const sortedData = (data || []).sort((a, b) => {
         // Sort by availability (false/occupied first)
         if (a.is_available !== b.is_available) {
           return a.is_available ? 1 : -1; // Occupied (false) comes before available (true)
         }
-        // Then sort numerically by name
-        const numA = parseInt(a.name.match(/\d+/)?.[0] || '0');
-        const numB = parseInt(b.name.match(/\d+/)?.[0] || '0');
+
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+
+        // Extract numerical parts for natural sorting
+        const numA = parseInt(nameA.match(/\d+/)?.[0] || '0');
+        const numB = parseInt(nameB.match(/\d+/)?.[0] || '0');
+
+        // Compare alphabetically first
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+
+        // If names are identical, compare numerically
         return numA - numB;
       });
 
