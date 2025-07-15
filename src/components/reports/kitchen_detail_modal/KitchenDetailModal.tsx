@@ -168,6 +168,51 @@ const KitchenDetailModal: React.FC<KitchenModalProps> = ({ isOpen, onClose, filt
                   { date: 'Dec', value: 650 },
                 ];
               }
+        } else if (dataKey === 'Chef Más Productivo') {
+            if (filter === 'today') {
+                data = [
+                  { date: '08:00', value: 5 },
+                  { date: '10:00', value: 8 },
+                  { date: '12:00', value: 12 },
+                  { date: '14:00', value: 10 },
+                  { date: '16:00', value: 15 },
+                  { date: '18:00', value: 18 },
+                  { date: '20:00', value: 20 },
+                  { date: '22:00', value: 17 },
+                ];
+              } else if (filter === 'week') {
+                data = [
+                  { date: 'Mon', value: 50 },
+                  { date: 'Tue', value: 60 },
+                  { date: 'Wed', value: 55 },
+                  { date: 'Thu', value: 70 },
+                  { date: 'Fri', value: 80 },
+                  { date: 'Sat', value: 90 },
+                  { date: 'Sun', value: 75 },
+                ];
+              } else if (filter === 'month') {
+                data = [
+                  { date: 'Week 1', value: 200 },
+                  { date: 'Week 2', value: 220 },
+                  { date: 'Week 3', value: 250 },
+                  { date: 'Week 4', value: 230 },
+                ];
+              } else if (filter === 'year') {
+                data = [
+                  { date: 'Jan', value: 800 },
+                  { date: 'Feb', value: 850 },
+                  { date: 'Mar', value: 900 },
+                  { date: 'Apr', value: 880 },
+                  { date: 'May', value: 950 },
+                  { date: 'Jun', value: 1000 },
+                  { date: 'Jul', value: 1100 },
+                  { date: 'Aug', value: 1050 },
+                  { date: 'Sep', value: 1150 },
+                  { date: 'Oct', value: 1200 },
+                  { date: 'Nov', value: 1250 },
+                  { date: 'Dec', value: 1300 },
+                ];
+              }
         }
         setKitchenDetails(data);
         setChartData(data.map(item => ({ ...item, [dataKey]: item.value })));

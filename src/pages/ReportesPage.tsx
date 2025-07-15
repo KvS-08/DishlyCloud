@@ -24,6 +24,7 @@ const ReportesPage: React.FC = React.memo(() => {
   const [isKitchenOrdersModalOpen, setIsKitchenOrdersModalOpen] = useState(false);
   const [isKitchenPrepTimeModalOpen, setIsKitchenPrepTimeModalOpen] = useState(false);
   const [isKitchenMostSoldDishModalOpen, setIsKitchenMostSoldDishModalOpen] = useState(false);
+
   const [isBarOrdersModalOpen, setIsBarOrdersModalOpen] = useState(false);
   const [isBarPrepTimeModalOpen, setIsBarPrepTimeModalOpen] = useState(false);
   const [isBarMostSoldAlcoholModalOpen, setIsBarMostSoldAlcoholModalOpen] = useState(false);
@@ -47,8 +48,7 @@ const ReportesPage: React.FC = React.memo(() => {
 
 
   const [kitchenData, setKitchenData] = useState({
-    mostProductiveChef: 'Cargando...',
-    productiveChefOrders: 0,
+    productiveChefsData: [],
     preparationTime: 'Cargando...',
     mostSoldDish: 'Cargando...',
     isLoading: true,
@@ -66,8 +66,12 @@ const ReportesPage: React.FC = React.memo(() => {
       });
 
       setKitchenData({
-        mostProductiveChef: 'Juan Pérez',
-        productiveChefOrders: 75,
+        productiveChefsData: [
+          { name: 'Juan', orders: 75 },
+          { name: 'Maria', orders: 60 },
+          { name: 'Pedro', orders: 50 },
+          { name: 'Ana', orders: 45 },
+        ],
         preparationTime: '15 minutos',
         mostSoldDish: 'Pizza Pepperoni',
         isLoading: false,
@@ -105,7 +109,8 @@ const ReportesPage: React.FC = React.memo(() => {
         <div className="hidden md:flex items-center space-x-0">
           <NotificationBell />
           <ThemeToggle />
-        </div>
+
+      </div>
       </div>
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 mt-4">
         <div className="flex justify-between items-center mb-4">
@@ -194,16 +199,32 @@ const ReportesPage: React.FC = React.memo(() => {
         />
       </Suspense>
 
+      <h2 className="text-base md:text-xl font-bold mt-8 mb-4">Informe de Cocina</h2>
+      <ErrorBoundary fallback={<p>Error al cargar las métricas de cocina.</p>}>
+        <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"><SkeletonCard /><SkeletonCard /><SkeletonCard /><SkeletonCard /></div>}>
+          <KitchenMetrics
+            productiveChefsData={kitchenData.productiveChefsData}
+            preparationTime={kitchenData.preparationTime}
+            mostSoldDish={kitchenData.mostSoldDish}
+            isLoading={kitchenData.isLoading}
+            onOrdersClick={() => setIsKitchenOrdersModalOpen(true)}
+            onPrepTimeClick={() => setIsKitchenPrepTimeModalOpen(true)}
+            onMostSoldDishClick={() => setIsKitchenMostSoldDishModalOpen(true)}
+            filter={filter}
+          />
+        </Suspense>
+      </ErrorBoundary>
+
       <Suspense fallback={<div>Cargando detalles de órdenes de cocina...</div>}>
         <KitchenDetailModal
           isOpen={isKitchenOrdersModalOpen}
           onClose={() => setIsKitchenOrdersModalOpen(false)}
-          filter={filter}
-          title="Órdenes Atendidas"
-          dataKey="Órdenes Atendidas"
-          chartColor="#8884d8"
         />
       </Suspense>
+
+
+
+
 
       <Suspense fallback={<div>Cargando detalles de tiempo de preparación de cocina...</div>}>
         <KitchenDetailModal
@@ -259,15 +280,6 @@ const ReportesPage: React.FC = React.memo(() => {
           chartColor="#ffc658"
         />
       </Suspense>
-
-        <div className="mt-6">
-          <h2 className="text-base md:text-xl font-bold mb-2">Informe de Cocina</h2>
-          <ErrorBoundary fallback={<p>Error al cargar el informe de cocina.</p>}>
-            <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4"><SkeletonCard /><SkeletonCard /></div>}>
-              <KitchenMetrics {...kitchenData} />
-            </Suspense>
-          </ErrorBoundary>
-        </div>
 
         <div className="mt-6">
           <h2 className="text-base md:text-xl font-bold mb-2">Informe del Bar</h2>

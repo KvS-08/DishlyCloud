@@ -19,7 +19,7 @@ interface BarMetricsProps {
 const BarMetrics: React.FC<BarMetricsProps> = React.memo(
   ({ mostProductiveBartender, productiveBartenderOrders, preparationTime, mostSoldAlcohol, isLoading, onOrdersClick, onPrepTimeClick, onMostSoldAlcoholClick }) => {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <DashboardCard
           title="Bartender Más Productivo"
           value={mostProductiveBartender}
@@ -30,7 +30,7 @@ const BarMetrics: React.FC<BarMetricsProps> = React.memo(
         <DashboardCard
           title="Órdenes Atendidas"
           value={productiveBartenderOrders.toString()}
-          icon={<IoTicketSharp className="h-4 w-4 text-gray-500" />}
+          icon={<IoTicketSharp className="h-4 w-4 text-purple-500" />}
           isLoading={isLoading}
           className="bg-white dark:bg-gray-900"
           onClick={onOrdersClick}

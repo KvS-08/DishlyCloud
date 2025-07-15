@@ -23,7 +23,7 @@ const SalesMetrics: React.FC<SalesMetricsProps> = React.memo(
     const currencySymbol = '$'; // Default currency symbol when Supabase is not used
 
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <DashboardCard
           title="Ventas"
           value={`${currencySymbol} ${sales.toFixed(2)}`}
