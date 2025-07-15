@@ -206,21 +206,29 @@ const ReportesPage: React.FC = React.memo(() => {
             preparationTime={kitchenData.preparationTime}
             mostSoldDish={kitchenData.mostSoldDish}
             isLoading={kitchenData.isLoading}
-            
+            onOrdersClick={() => {}}
+            onPrepTimeClick={() => {}}
+            onMostSoldDishClick={() => {}}
             filter={filter}
           />
         </Suspense>
       </ErrorBoundary>
 
-      
-
-
-
-
-
-
-
-
+      <h2 className="text-base md:text-xl font-bold mt-8 mb-4">Informe del Bar</h2>
+      <ErrorBoundary fallback={<p>Error al cargar las métricas del bar.</p>}>
+        <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"><SkeletonCard /><SkeletonCard /><SkeletonCard /><SkeletonCard /></div>}>
+          <BarMetrics
+            mostProductiveBartender={barData.mostProductiveBartender}
+            productiveBartenderOrders={barData.productiveBartenderOrders}
+            preparationTime={barData.preparationTime}
+            mostSoldAlcohol={barData.mostSoldAlcohol}
+            isLoading={barData.isLoading}
+            onOrdersClick={() => setIsBarOrdersModalOpen(true)}
+            onPrepTimeClick={() => setIsBarPrepTimeModalOpen(true)}
+            onMostSoldAlcoholClick={() => setIsBarMostSoldAlcoholModalOpen(true)}
+          />
+        </Suspense>
+      </ErrorBoundary>
 
       <Suspense fallback={<div>Cargando detalles de órdenes de bar...</div>}>
         <BarDetailModal
@@ -254,15 +262,6 @@ const ReportesPage: React.FC = React.memo(() => {
           chartColor="#ffc658"
         />
       </Suspense>
-
-        <div className="mt-6">
-          <h2 className="text-base md:text-xl font-bold mb-2">Informe del Bar</h2>
-          <ErrorBoundary fallback={<p>Error al cargar el informe del bar.</p>}>
-            <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4"><SkeletonCard /><SkeletonCard /></div>}>
-              <BarMetrics {...barData} />
-            </Suspense>
-          </ErrorBoundary>
-        </div>
       </div>
     </div>
   );

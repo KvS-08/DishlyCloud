@@ -54,7 +54,13 @@ export const LoginPage: React.FC = () => {
         </div>
 
         {/* Right Section: Restaurant Logos */}
-        <div className={`w-full lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-800 p-10 lg:p-13 flex items-center justify-center relative overflow-hidden ${showLogin ? 'hidden lg:flex' : ''}`}>
+        <motion.div
+          initial="initial"
+          animate="animate"
+          variants={pageVariants}
+          transition={pageTransition}
+          className={`w-full lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-800 p-10 lg:p-13 flex items-center justify-center relative overflow-hidden ${showLogin ? 'hidden lg:flex' : ''}`}>
+        
           <div className="absolute inset-0 z-0" style={{ backgroundImage: `url(${randomBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
             <div className="absolute inset-0 bg-primary-600 opacity-70 z-10"></div>
             <div className="relative z-20 text-white text-center">
@@ -88,7 +94,7 @@ export const LoginPage: React.FC = () => {
             </div>
 
           </div>
-        </div>
+        </motion.div>
       </div>
   );
 };
