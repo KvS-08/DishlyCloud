@@ -2,7 +2,7 @@ import { FaTimes } from 'react-icons/fa';
 import Portal from '../ui/Portal';
 import QRCode from 'react-qr-code';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 
 interface MenuQRModalProps {
   isOpen: boolean;
@@ -54,4 +54,4 @@ const MenuQRModal: React.FC<MenuQRModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export default MenuQRModal;
+export default memo(MenuQRModal);

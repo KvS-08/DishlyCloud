@@ -1,8 +1,8 @@
-import React from 'react';
+// Remove duplicate React import since it's already imported below
 import Portal from '../ui/Portal';
 import { FaTimes } from 'react-icons/fa';
 import { BiSolidFoodMenu } from 'react-icons/bi';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
@@ -147,4 +147,4 @@ const AddCategoriesModal: React.FC<AddCategoriesModalProps> = ({
   );
 };
 
-export default AddCategoriesModal;
+export default memo(AddCategoriesModal);

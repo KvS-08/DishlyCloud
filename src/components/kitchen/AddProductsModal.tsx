@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { FaTimes, FaUpload } from 'react-icons/fa';
 import { IoFastFoodSharp } from 'react-icons/io5';
 import { MdAccessTime, MdStickyNote2 } from 'react-icons/md';
@@ -592,4 +592,4 @@ const AddProductsModal: React.FC<AddProductsModalProps> = ({
   );
 };
 
-export default AddProductsModal;
+export default memo(AddProductsModal);

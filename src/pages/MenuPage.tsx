@@ -3,7 +3,7 @@ import { es } from 'date-fns/locale';
 import { ThemeToggle } from '../components/ui/ThemeToggle';
 import { LiaQrcodeSolid } from 'react-icons/lia';
 import { NotificationBell } from '../components/ui/NotificationBell';
-import React, { useState, lazy, Suspense, useEffect } from 'react';
+import React, { useState, lazy, Suspense, useEffect, memo } from 'react';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import MenuQRModal from '../components/kitchen/MenuQRModal';
 import { useAuth } from '../hooks/useAuth';
@@ -69,9 +69,10 @@ const MenuPage: React.FC = () => {
         .select('*')
         .eq('business_id', user.business_id)
         .eq('is_active', true)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false }); 
+   
 
-      if (error) {
+if (error) {
         console.error('Error loading categories:', error);
         return;
       }
@@ -208,7 +209,7 @@ const MenuPage: React.FC = () => {
         </h1>
         <div>
           <div className="flex items-center">
-            <NotificationBell />
+            <NotificationBell className="hidden md:block" />
             <LiaQrcodeSolid
               className="w-6 h-6 cursor-pointer text-gray-600 dark:text-gray-300"
               onClick={() => setIsMenuQRModalOpen(true)}
@@ -409,4 +410,4 @@ const MenuPage: React.FC = () => {
   );
 };
 
-export default MenuPage;
+export default memo(MenuPage);
