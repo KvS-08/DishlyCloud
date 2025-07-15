@@ -5,8 +5,8 @@ import { ThemeToggle } from '../components/ui/ThemeToggle';
 import { NotificationBell } from '../components/ui/NotificationBell';
 import { MdTableRestaurant, MdEdit, MdDelete, MdQrCode2 } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import AddTableModal from '../components/tables/AddTableModal';
-import TableDetailsModal from '../components/tables/TableDetailsModal';
+const AddTableModal = React.lazy(() => import('../components/tables/AddTableModal'));
+const TableDetailsModal = React.lazy(() => import('../components/tables/TableDetailsModal'));
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
 import toast from 'react-hot-toast';
@@ -173,8 +173,13 @@ const MesasPage = () => {
       {/* Tables Grid */}
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
         {loading ? (
-          <div className="flex justify-center items-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-2 border-green-500 border-t-transparent"></div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="relative bg-gray-100 dark:bg-gray-700 rounded-lg p-4 shadow-sm animate-pulse h-32">
+                <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4 mb-4"></div>
+                <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/2"></div>
+              </div>
+            ))}
           </div>
         ) : (
           <>
@@ -242,22 +247,26 @@ const MesasPage = () => {
         )}
       </div>
 
-      <AddTableModal
-        isOpen={isAddTableModalOpen}
-        onClose={() => setIsAddTableModalOpen(false)}
-        onTableAdded={handleTableAdded}
-      />
+      <React.Suspense fallback={<div>Cargando...</div>}>
+        {isAddTableModalOpen && (
+          <AddTableModal
+            isOpen={isAddTableModalOpen}
+            onClose={() => setIsAddTableModalOpen(false)}
+            onTableAdded={handleTableAdded}
+          />
+        )}
 
-      {selectedTable && (
-        <TableDetailsModal
-          isOpen={isTableDetailsModalOpen}
-          onClose={() => {
-            setIsTableDetailsModalOpen(false);
-            setSelectedTable(null);
-          }}
-          table={selectedTable}
-        />
-      )}
+        {selectedTable && (
+          <TableDetailsModal
+            isOpen={isTableDetailsModalOpen}
+            onClose={() => {
+              setIsTableDetailsModalOpen(false);
+              setSelectedTable(null);
+            }}
+            table={selectedTable}
+          />
+        )}
+      </React.Suspense>
     </div>
   );
 };

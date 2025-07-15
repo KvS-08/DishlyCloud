@@ -15,6 +15,17 @@ const AddCategoriesModal = lazy(() => import('../components/kitchen/AddCategorie
 const AddProductsModal = lazy(() => import('../components/kitchen/AddProductsModal'));
 const EditProductModal = lazy(() => import('../components/kitchen/EditProductModal'));
 
+const MenuItemSkeleton: React.FC = () => (
+  <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 shadow-sm animate-pulse">
+    <div className="w-full h-20 mb-1 rounded-md bg-gray-200 dark:bg-gray-600"></div>
+    <div className="space-y-1">
+      <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded w-3/4"></div>
+      <div className="h-3 bg-gray-200 dark:bg-gray-600 rounded w-1/2"></div>
+      <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded w-1/4"></div>
+    </div>
+  </div>
+);
+
 interface Category {
   id: string;
   name: string;
@@ -307,7 +318,13 @@ if (error) {
             
             {/* Menu Items Section */}
             <div className="mt-3">
-              {filteredMenuItems.length === 0 ? (
+              {loading ? (
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {[...Array(8)].map((_, index) => (
+                    <MenuItemSkeleton key={index} />
+                  ))}
+                </div>
+              ) : filteredMenuItems.length === 0 ? (
                 <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                   <p>
                     {selectedCategory 

@@ -24,7 +24,7 @@ import SalesPage from './pages/SalesPage';
 
 import NegociosPage from './pages/NegociosPage';
 import TicketsPage from './pages/TicketsPage';
-import MesasPage from './pages/MesasPage';
+const MesasPage = React.lazy(() => import('./pages/MesasPage'));
 const ReportesPage = React.lazy(() => import('./pages/ReportesPage'));
 
 import MenuQRPage from './pages/MenuQRPage';
@@ -208,15 +208,17 @@ const AppRoutes: React.FC = () => {
           <Route
             path="cuentas"
             element={
-              <motion.div
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                variants={pageVariants}
-                transition={pageTransition}
-              >
-                <MesasPage />
-              </motion.div>
+              <React.Suspense fallback={<LoadingSpinner />}>
+                <motion.div
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <MesasPage />
+                </motion.div>
+              </React.Suspense>
             }
           />
           <Route
