@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from '@nextui-org/react';
+
+import { createPortal } from 'react-dom';
+import { FaTimes } from 'react-icons/fa';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface KitchenDetail {
@@ -17,6 +19,11 @@ interface KitchenModalProps {
 }
 
 const KitchenDetailModal: React.FC<KitchenModalProps> = ({ isOpen, onClose, filter, title, dataKey, chartColor }) => {
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    setIsBrowser(true);
+  }, []);
   const [kitchenDetails, setKitchenDetails] = useState<KitchenDetail[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
 
@@ -169,52 +176,55 @@ const KitchenDetailModal: React.FC<KitchenModalProps> = ({ isOpen, onClose, filt
     }
   }, [isOpen, filter, dataKey]);
 
-  return (
-    <Modal isOpen={isOpen} onOpenChange={onClose} size="5xl" scrollBehavior="inside">
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
-            <ModalBody>
-              <div className="h-96 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    data={chartData}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey={dataKey} stroke={chartColor} activeDot={{ r: 8 }} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold">Detalles de {title.toLowerCase()}:</h3>
+  const modalContent = isOpen ? (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="relative w-11/12 max-w-5xl rounded-lg bg-white p-6 shadow-lg">
+        <button onClick={onClose} className="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
+          <FaTimes size={24} />
+        </button>
+        <h2 className="mb-4 text-2xl font-bold">{title}</h2>
+        <div className="h-96 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={chartData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey={dataKey} stroke={chartColor} activeDot={{ r: 8 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold">Detalles de {title.toLowerCase()}:</h3>
                 <ul className="list-disc pl-5">
                   {kitchenDetails.map((detail, index) => (
                     <li key={index}>Fecha: {detail.date}, {dataKey}: {detail.value}</li>
                   ))}
                 </ul>
               </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                Cerrar
-              </Button>
-            </ModalFooter>
-          </>
-        )}
-      </ModalContent>
-    </Modal>
-  );
+              <div className="mt-6 flex justify-end">
+                <button onClick={onClose} className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null;
+
+  if (isBrowser) {
+    return createPortal(modalContent, document.getElementById('modal-root') as HTMLElement);
+  } else {
+    return null;
+  }
 };
 
 export default KitchenDetailModal;

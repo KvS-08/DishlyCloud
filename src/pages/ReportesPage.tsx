@@ -135,8 +135,8 @@ const ReportesPage: React.FC = React.memo(() => {
             endOfWeek.setDate(startOfWeek.getDate() + 6);
             return { start: startOfWeek, end: endOfWeek };
           })()} // Pass actual date range if available
-          filter={filter}
-          setFilter={setFilter}
+          filter={filter as "weekly" | "monthly" | "quarterly" | "yearly"}
+          // Remove setFilter prop since it's not defined in SalesModalProps interface
         />
       </Suspense>
 
@@ -153,7 +153,7 @@ const ReportesPage: React.FC = React.memo(() => {
             endOfWeek.setDate(startOfWeek.getDate() + 6);
             return { start: startOfWeek, end: endOfWeek };
           })()} // Pass actual date range if available
-          filter={filter}
+          filter={filter as "weekly" | "monthly" | "quarterly" | "yearly"}
           setFilter={setFilter}
         />
       </Suspense>

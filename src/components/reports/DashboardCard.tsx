@@ -9,10 +9,11 @@ interface DashboardCardProps {
   isLoading?: boolean;
   bgColorClass?: string;
   className?: string;
+  onClick?: () => void;
 }
 
 const DashboardCard: React.FC<DashboardCardProps> = React.memo(
-  ({ title, value, icon, description, isLoading, bgColorClass, className }) => {
+  ({ title, value, icon, description, isLoading, bgColorClass, className, onClick }) => {
     if (isLoading) {
       return <SkeletonCard />;
     }
@@ -20,7 +21,10 @@ const DashboardCard: React.FC<DashboardCardProps> = React.memo(
     const backgroundClass = bgColorClass || "bg-white dark:bg-gray-800";
 
     return (
-      <div className={`${backgroundClass} rounded-lg shadow-md p-4 flex flex-col justify-between ${className || ''}`}>
+      <div
+        className={`${backgroundClass} rounded-lg shadow-md p-4 flex flex-col justify-between ${className || ''} ${onClick ? 'cursor-pointer' : ''}`}
+        onClick={onClick}
+      >
         <div>
           <div className="flex items-center justify-between mb-0">
             <h3 className="text-xs md:text-lg font-semibold text-gray-700 dark:text-gray-200">{title}</h3>
