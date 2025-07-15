@@ -6,6 +6,7 @@ import { GiReceiveMoney, GiMoneyStack } from 'react-icons/gi';
 // import { useBusinessSettings } from '../../hooks/useBusinessSettings';
 
 interface SalesMetricsProps {
+  currency: string;
   onClick?: () => void;
   sales: number;
   expenses: number;
@@ -18,9 +19,9 @@ interface SalesMetricsProps {
 }
 
 const SalesMetrics: React.FC<SalesMetricsProps> = React.memo(
-  ({ sales, expenses, utility, profit, isLoading, onClick, onExpensesClick, onProfitClick, onUtilityClick }) => {
+  ({ sales, expenses, utility, profit, isLoading, onClick, onExpensesClick, onProfitClick, onUtilityClick, currency }) => {
     // const { settings } = useBusinessSettings();
-    const currencySymbol = '$'; // Default currency symbol when Supabase is not used
+    const currencySymbol = currency; // Use the currency prop
 
     return (
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">

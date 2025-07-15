@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { ThemeToggle } from "../components/ui/ThemeToggle";
 import { NotificationBell } from "../components/ui/NotificationBell";
+import { useBusinessSettings } from "../hooks/useBusinessSettings";
 import DateFilter from "../components/ui/DateFilter";
 import ErrorBoundary from '../components/ui/ErrorBoundary';
 const SalesDetailModal = lazy(() => import('../components/reports/sales_detail_modal/SalesDetailModal'));
@@ -17,6 +18,8 @@ const KitchenMetrics = lazy(() => import('../components/reports/KitchenMetrics')
 const BarMetrics = lazy(() => import('../components/reports/BarMetrics'));
 
 const ReportesPage: React.FC = React.memo(() => {
+  const { data: businessSettings } = useBusinessSettings();
+  const currency = businessSettings?.currency || '$'; // Default to '$' if not available
   const [isSalesDetailModalOpen, setIsSalesDetailModalOpen] = useState(false);
   const [isExpensesDetailModalOpen, setIsExpensesDetailModalOpen] = useState(false);
   const [isProfitDetailModalOpen, setIsProfitDetailModalOpen] = useState(false);
@@ -118,7 +121,7 @@ const ReportesPage: React.FC = React.memo(() => {
         </div>
         <ErrorBoundary fallback={<p>Error al cargar las métricas de ventas.</p>}>
           <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"><SkeletonCard /><SkeletonCard /><SkeletonCard /><SkeletonCard /></div>}>
-            <SalesMetrics {...salesData} onClick={() => setIsSalesDetailModalOpen(true)} onExpensesClick={() => setIsExpensesDetailModalOpen(true)} onProfitClick={() => setIsProfitDetailModalOpen(true)} onUtilityClick={() => setIsUtilityDetailModalOpen(true)} />
+            <SalesMetrics {...salesData} currency={currency} onClick={() => setIsSalesDetailModalOpen(true)} onExpensesClick={() => setIsExpensesDetailModalOpen(true)} onProfitClick={() => setIsProfitDetailModalOpen(true)} onUtilityClick={() => setIsUtilityDetailModalOpen(true)} />
            </Suspense>
          </ErrorBoundary>
 

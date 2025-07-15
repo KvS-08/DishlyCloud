@@ -4,13 +4,14 @@ import { NotificationBell } from '../components/ui/NotificationBell';
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { format } from 'date-fns';
 import AddIngredientsModal from '../components/kitchen/AddIngredientsModal';
-import EditIngredientModal from '../components/kitchen/EditIngredientModal';
+const EditIngredientModal = lazy(() => import('../components/kitchen/EditIngredientModal'));
 import { es } from 'date-fns/locale';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
 import { useBusinessSettings } from '../hooks/useBusinessSettings';
 import toast from 'react-hot-toast';
 import { FaSearch } from 'react-icons/fa';
+// ... existing code ...
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 interface InventoryItem {
@@ -155,38 +156,26 @@ const InventoryPage: React.FC = () => {
         onIngredientAdded={handleIngredientAdded}
       />
       {selectedItem && (
-        <EditIngredientModal
-          isOpen={isEditModalOpen}
-          onClose={() => {
-            setIsEditModalOpen(false);
-            setSelectedItem(null);
-          }}
-          ingredient={selectedItem}
-          onIngredientUpdated={handleIngredientUpdated}
-        />
+        <Suspense fallback={<LoadingSpinner />}>
+          <EditIngredientModal
+            isOpen={isEditModalOpen}
+            onClose={() => {
+              setIsEditModalOpen(false);
+              setSelectedItem(null);
+            }}
+            ingredient={selectedItem}
+            onIngredientUpdated={handleIngredientUpdated}
+          />
+        </Suspense>
       )}
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl md:text-3xl font-bold">
-          {(() => {
-            const formattedDate = format(new Date(), 'EEEE, dd \'de\' MMMM \'de\' yyyy', { locale: es });
-            const parts = formattedDate.split(',');
-            if (parts.length > 0) {
-              const day = parts[0];
-              const capitalizedDay = day.charAt(0).toUpperCase() + day.slice(1);
-              return [capitalizedDay, ...parts.slice(1)].join(',');
-            }
-            return formattedDate; // Fallback if split fails
-          })()}
-        </h1>
-        <div className="hidden md:flex items-center space-x-0">
-          <NotificationBell />
-          <ThemeToggle />
-        </div>
-      </div>
       <div className="mb-4 flex justify-between items-center">
         <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
           Inventario Actual - {formatCurrency(inventoryValue)}
         </h3>
+        <div className="hidden md:flex items-center space-x-0">
+          <NotificationBell />
+          <ThemeToggle />
+        </div>
       </div>
       <div className="mb-4 flex justify-between items-center space-x-2">
         <div className="relative flex-grow">
@@ -204,9 +193,9 @@ const InventoryPage: React.FC = () => {
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="px-1 py-1.5 border border-gray-300 rounded-md bg-white text-black dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          className="px-0.5 py-1.5 border border-gray-300 rounded-md bg-white text-black dark:bg-gray-700 dark:border-gray-600 dark:text-white"
         >
-          <option value="All">Todas las Categorías</option>
+          <option value="All">Todos</option>
           <option value="Comida">Comida</option>
           <option value="Bebidas">Bebidas</option>
           <option value="Alcohol">Alcohol</option>

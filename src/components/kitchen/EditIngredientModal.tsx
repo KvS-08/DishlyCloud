@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
 import { useBusinessSettings } from '../../hooks/useBusinessSettings';
@@ -54,25 +54,29 @@ const EditIngredientModal: React.FC<EditIngredientModalProps> = ({
   const [unidad, setUnidad] = useState('kg');
   const [minStockLevel, setMinStockLevel] = useState('');
   const [showButtonAndDivider, setShowButtonAndDivider] = useState(false);
+  const initialIngredientRef = useRef<InventoryItem | null>(null);
 
   useEffect(() => {
     if (isOpen && ingredient) {
       setShowModal(true);
       setAnimationClass('modal-slide-in');
-      
+      initialIngredientRef.current = ingredient; // Store initial ingredient
+      setShowButtonAndDivider(false); // Hide button/divider initially
+
       // Set form values from ingredient
       setNombre(ingredient.name || '');
       setUnidad(ingredient.unit || 'kg');
       setCostoUnitario(ingredient.cost_per_unit?.toString() || '');
       setStockInicial(ingredient.quantity?.toString() || '');
       setMinStockLevel(ingredient.min_stock_level?.toString() || '');
-      
+
       // Set additional fields if available
       setIdp(ingredient.idp || '');
       setCostoPedido(ingredient.costo_pedido?.toString() || '');
 
       setStockActual(ingredient.stock_actual !== null ? ingredient.stock_actual?.toString() || '' : ingredient.quantity?.toString() || '');
       setFecha(ingredient.fecha_agregado || new Date().toISOString().split('T')[0]);
+
     } else {
       setAnimationClass('modal-slide-out');
       const timer = setTimeout(() => {
@@ -83,16 +87,30 @@ const EditIngredientModal: React.FC<EditIngredientModalProps> = ({
   }, [isOpen, ingredient]);
 
   const checkFieldsForData = () => {
-    if (nombre || costoPedido || costoUnitario || stockInicial || stockActual) {
-      setShowButtonAndDivider(true);
-    } else {
+    if (!initialIngredientRef.current) {
       setShowButtonAndDivider(false);
+      return;
     }
+
+    const original = initialIngredientRef.current;
+
+    const isModified =
+      nombre !== (original.name || '') ||
+      unidad !== (original.unit || 'kg') ||
+      costoUnitario !== (original.cost_per_unit?.toString() || '') ||
+      stockInicial !== (original.quantity?.toString() || '') ||
+      minStockLevel !== (original.min_stock_level?.toString() || '') ||
+      idp !== (original.idp || '') ||
+      costoPedido !== (original.costo_pedido?.toString() || '') ||
+      stockActual !== (original.stock_actual !== null ? original.stock_actual?.toString() || '' : original.quantity?.toString() || '') ||
+      fecha !== (original.fecha_agregado || new Date().toISOString().split('T')[0]);
+
+    setShowButtonAndDivider(isModified);
   };
 
   useEffect(() => {
     checkFieldsForData();
-  }, [nombre, costoPedido, costoUnitario, stockInicial, stockActual]);
+  }, [nombre, costoPedido, costoUnitario, stockInicial, stockActual, unidad, minStockLevel, idp, fecha]);
 
   const handleSave = async () => {
     if (!user?.business_id || !user?.id || !ingredient) {
@@ -170,12 +188,14 @@ const EditIngredientModal: React.FC<EditIngredientModalProps> = ({
         <div className="bg-white dark:bg-gray-800 px-6 pb-3 p-5 rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 relative">
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
+            className="absolute top-2 right-2 text-red-500 hover:text-red-700 dark:text-gray-400 dark:hover:text-red-500"
           >
             <FaTimes size={20} />
           </button>
-          <h2 className="text-lg font-bold mb-1 dark:text-white">Editar Ingrediente</h2>
-          <hr className="mb-4 border-gray-300 dark:border-gray-600" />
+          <h2 className="text-lg font-bold mb-0 dark:text-white">Editar Ingrediente</h2>
+          {showButtonAndDivider && (
+            <hr className="mb-3 border-gray-300 dark:border-gray-600" />
+          )}
           <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="fecha" className="block text-xs font-medium text-gray-700 dark:text-gray-300">Fecha</label>
@@ -313,15 +333,17 @@ const EditIngredientModal: React.FC<EditIngredientModalProps> = ({
           {showButtonAndDivider && (
             <>
               <hr className="my-2 border-gray-300 dark:border-gray-600" />
-              <div className="mt-0 flex justify-end">
-                <button
-                  onClick={handleSave}
-                  disabled={loading}
-                  className="text-green-600 hover:text-green-500 dark:text-green-500 dark:hover:text-green-400 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {loading ? 'Guardando...' : 'Guardar'}
-                </button>
-              </div>
+              {showButtonAndDivider && (
+            <div className="mt-1 flex justify-end">
+              <button
+                onClick={handleSave}
+                disabled={loading}
+                className="px-1.5 py-0.5 bg-green-600 text-white p-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50"
+              >
+                {loading ? 'Guardando...' : 'Guardar'}
+              </button>
+            </div>
+          )}
             </>
           )}
         </div>
