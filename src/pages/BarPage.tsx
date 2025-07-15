@@ -1,13 +1,14 @@
+import React, { useState, useEffect } from 'react';
 import { NotificationBell } from '../components/ui/NotificationBell';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { KitchenOrderCard } from '../components/kitchen/KitchenOrderCard';
+import { KitchenStats } from '../components/kitchen/KitchenStats';
 import { CheckCircle2 } from 'lucide-react';
 import { ThemeToggle } from '../components/ui/ThemeToggle';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
 import toast from 'react-hot-toast';
-import { useState, useEffect } from 'react';
 
 interface OrderItem {
   id: string;
@@ -37,8 +38,6 @@ export const BarPage: React.FC = () => {
   const [orders, setOrders] = useState<KitchenOrder[]>([]);
   const [completedCount, setCompletedCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  
-  
   
   // Load orders from database on component mount
   useEffect(() => {
@@ -169,7 +168,17 @@ export const BarPage: React.FC = () => {
     }
   };
   
+  const kitchenStats = {
+    averagePreparationTime: '18 minutos',
+    averagePreparationTimeYesterday: 20,
+    completedOrders: completedCount,
+    completedOrdersYesterday: completedCount - 2,
+    onTimeOrders: Math.max(0, completedCount - 3),
+    delayedOrders: 3,
+    estimatedWaitTime: orders.length > 0 ? `${orders.length * 5} minutos` : 'Sin espera',
+    estimatedWaitTimeYesterday: 25,
 
+  };
   
   return (
     <div className="space-y-6 md:ml-32 pt-4 md:pt-0 md:-mt-10">
@@ -192,7 +201,9 @@ export const BarPage: React.FC = () => {
         </div>
       </div>
       
-      <h2 className="text-xl font-bold mt-8">Órdenes en Preparación ({orders.length})</h2>
+      <KitchenStats {...kitchenStats} />
+      
+      <h2 className="text-xl font-semibold mt-6">Órdenes en Preparación ({orders.length})</h2>
       
       {loading ? (
         <div className="flex justify-center items-center py-8">
@@ -211,7 +222,6 @@ export const BarPage: React.FC = () => {
           {orders.map((order) => (
             <KitchenOrderCard 
               key={order.id}
-              id={order.id}
               orderNumber={order.order_number}
               customerName={order.customer_name}
               tableNumber={order.table_number}
