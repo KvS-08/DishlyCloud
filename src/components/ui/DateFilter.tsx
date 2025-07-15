@@ -19,7 +19,7 @@ const DateFilter: React.FC<DateFilterProps> = ({ filter, setFilter }) => {
   return (
     <div className="relative">
       <button
-        className="px-1 py-1 rounded-md text-sm font-medium bg-blue-500 text-white hover:bg-blue-600 flex items-center"
+        className="px-1.5 py-1 rounded-md text-sm font-medium bg-blue-500 text-white hover:bg-blue-600 flex items-center"
         onClick={() => setIsOpen(!isOpen)}
       >
         {filter.charAt(0).toUpperCase() + filter.slice(1)}
