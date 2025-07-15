@@ -15,7 +15,7 @@ export const MainLayout: React.FC = () => {
       {!hideSidebar && <Header />}
       
       <main className={`
-        transition-all overflow-y-auto
+        flex-grow transition-all overflow-y-auto
         ${hideSidebar ? 'p-0 m-0' : 'pt-16 pb-8 px-6'}
         ${collapsed && !hideSidebar ? 'ml-16' : 'md:ml-16 ml-0'}
       `}>

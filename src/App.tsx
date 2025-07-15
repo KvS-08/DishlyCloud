@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
@@ -25,9 +25,10 @@ import SalesPage from './pages/SalesPage';
 import NegociosPage from './pages/NegociosPage';
 import TicketsPage from './pages/TicketsPage';
 import MesasPage from './pages/MesasPage';
-import ReportesPage from './pages/ReportesPage';
+const ReportesPage = React.lazy(() => import('./pages/ReportesPage'));
 
 import MenuQRPage from './pages/MenuQRPage';
+
 
 
 import LoadingSpinner from './components/ui/LoadingSpinner';
@@ -242,7 +243,9 @@ const AppRoutes: React.FC = () => {
                 variants={pageVariants}
                 transition={pageTransition}
               >
-                <ReportesPage />
+                <Suspense fallback={<LoadingSpinner />}>
+                  <ReportesPage />
+                </Suspense>
               </motion.div>
             }
           />

@@ -22,7 +22,7 @@ export const useBusinessSettings = () => {
       if (!user?.business_id) {
         setSettings({
           time_format: '24h',
-          currency: 'HNL',
+          currency: 'L',
           language: 'es',
           date_format: 'DD/MM/YYYY',
           theme: 'light'
@@ -42,7 +42,7 @@ export const useBusinessSettings = () => {
           if (error.code === 'PGRST116') { // No rows found
             setSettings({
               time_format: '24h',
-              currency: 'HNL',
+              currency: 'L',
               language: 'es',
               date_format: 'DD/MM/YYYY',
               theme: 'light'
