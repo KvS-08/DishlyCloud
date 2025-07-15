@@ -7,7 +7,7 @@ const SalesDetailModal = lazy(() => import('../components/reports/sales_detail_m
 const ExpensesDetailModal = lazy(() => import('../components/reports/expenses_detail_modal/ExpensesDetailModal'));
 const ProfitDetailModal = lazy(() => import('../components/reports/profit_detail_modal/ProfitDetailModal'));
 const UtilityDetailModal = lazy(() => import('../components/reports/utility_detail_modal/UtilityDetailModal'));
-const KitchenDetailModal = lazy(() => import('../components/reports/kitchen_detail_modal/KitchenDetailModal'));
+
 const BarDetailModal = lazy(() => import('../components/reports/bar_detail_modal/BarDetailModal'));
 import SkeletonCard from '../components/ui/SkeletonCard';
 
@@ -21,9 +21,8 @@ const ReportesPage: React.FC = React.memo(() => {
   const [isExpensesDetailModalOpen, setIsExpensesDetailModalOpen] = useState(false);
   const [isProfitDetailModalOpen, setIsProfitDetailModalOpen] = useState(false);
   const [isUtilityDetailModalOpen, setIsUtilityDetailModalOpen] = useState(false);
-  const [isKitchenOrdersModalOpen, setIsKitchenOrdersModalOpen] = useState(false);
-  const [isKitchenPrepTimeModalOpen, setIsKitchenPrepTimeModalOpen] = useState(false);
-  const [isKitchenMostSoldDishModalOpen, setIsKitchenMostSoldDishModalOpen] = useState(false);
+
+
 
   const [isBarOrdersModalOpen, setIsBarOrdersModalOpen] = useState(false);
   const [isBarPrepTimeModalOpen, setIsBarPrepTimeModalOpen] = useState(false);
@@ -207,46 +206,21 @@ const ReportesPage: React.FC = React.memo(() => {
             preparationTime={kitchenData.preparationTime}
             mostSoldDish={kitchenData.mostSoldDish}
             isLoading={kitchenData.isLoading}
-            onOrdersClick={() => setIsKitchenOrdersModalOpen(true)}
-            onPrepTimeClick={() => setIsKitchenPrepTimeModalOpen(true)}
-            onMostSoldDishClick={() => setIsKitchenMostSoldDishModalOpen(true)}
+            
             filter={filter}
           />
         </Suspense>
       </ErrorBoundary>
 
-      <Suspense fallback={<div>Cargando detalles de órdenes de cocina...</div>}>
-        <KitchenDetailModal
-          isOpen={isKitchenOrdersModalOpen}
-          onClose={() => setIsKitchenOrdersModalOpen(false)}
-        />
-      </Suspense>
+      
 
 
 
 
 
-      <Suspense fallback={<div>Cargando detalles de tiempo de preparación de cocina...</div>}>
-        <KitchenDetailModal
-          isOpen={isKitchenPrepTimeModalOpen}
-          onClose={() => setIsKitchenPrepTimeModalOpen(false)}
-          filter={filter}
-          title="Tiempo de Preparación"
-          dataKey="Tiempo de Preparación"
-          chartColor="#82ca9d"
-        />
-      </Suspense>
 
-      <Suspense fallback={<div>Cargando detalles de plato más vendido de cocina...</div>}>
-        <KitchenDetailModal
-          isOpen={isKitchenMostSoldDishModalOpen}
-          onClose={() => setIsKitchenMostSoldDishModalOpen(false)}
-          filter={filter}
-          title="Plato Más Vendido"
-          dataKey="Plato Más Vendido"
-          chartColor="#ffc658"
-        />
-      </Suspense>
+
+
 
       <Suspense fallback={<div>Cargando detalles de órdenes de bar...</div>}>
         <BarDetailModal

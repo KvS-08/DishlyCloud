@@ -177,6 +177,7 @@ export const KitchenPage: React.FC = () => {
     delayedOrders: 3,
     estimatedWaitTime: orders.length > 0 ? `${orders.length * 5} minutos` : 'Sin espera',
     estimatedWaitTimeYesterday: 25,
+
   };
   
   return (
@@ -221,7 +222,6 @@ export const KitchenPage: React.FC = () => {
           {orders.map((order) => (
             <KitchenOrderCard 
               key={order.id}
-              id={order.id}
               orderNumber={order.order_number}
               customerName={order.customer_name}
               tableNumber={order.table_number}

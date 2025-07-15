@@ -12,8 +12,7 @@ interface KitchenStatsProps {
   delayedOrders: number;
   estimatedWaitTime: string;
   estimatedWaitTimeYesterday: number;
-  mostProductiveChef: string;
-  productiveChefOrders: number;
+
 }
 
 export const KitchenStats: React.FC<KitchenStatsProps> = ({
@@ -25,8 +24,7 @@ export const KitchenStats: React.FC<KitchenStatsProps> = ({
   delayedOrders,
   estimatedWaitTime,
   estimatedWaitTimeYesterday,
-  mostProductiveChef,
-  productiveChefOrders,
+
 }) => {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -141,24 +139,7 @@ export const KitchenStats: React.FC<KitchenStatsProps> = ({
         </div>
      </div>
 
-      <div className="card">
-        <div className="flex items-start justify-between">
-          <div>
-            <h3 className="text-xs md:text-sm font-medium text-gray-500 dark:text-gray-400">
-              Cocinero más productivo
-            </h3>
-            <p className="mt-2 text-xs md:text-2xl font-semibold text-gray-900 dark:text-white">
-              {mostProductiveChef}
-            </p>
-            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-              {productiveChefOrders} órdenes
-            </p>
-          </div>
-          <div className="hidden sm:block p-19 rounded-md bg-blue-500 text-white dark:bg-blue-900/30">
-            <PiBowlFoodFill className="h-4 w-4" />
-          </div>
-        </div>
-      </div>
+
    </div>
  );
 };
