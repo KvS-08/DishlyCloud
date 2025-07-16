@@ -9,6 +9,7 @@ import { ThemeToggle } from '../components/ui/ThemeToggle';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
 import toast from 'react-hot-toast';
+import SkeletonCard from '../components/ui/SkeletonCard';
 
 interface OrderItem {
   id: string;
@@ -200,38 +201,44 @@ export const BarPage: React.FC = () => {
           <ThemeToggle />
         </div>
       </div>
-      
-      <KitchenStats {...kitchenStats} />
-      
-      <h2 className="text-xl font-semibold mt-6">Órdenes en Preparación ({orders.length})</h2>
-      
+
       {loading ? (
-        <div className="flex justify-center items-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-t-transparent"></div>
-        </div>
-      ) : orders.length === 0 ? (
-        <div className="text-center py-12">
-          <CheckCircle2 className="h-16 w-16 mx-auto text-success-500 mb-4" />
-          <h3 className="text-xl font-medium text-gray-900 dark:text-white">¡Todas las órdenes completadas!</h3>
-          <p className="mt-2 text-gray-500 dark:text-gray-400">
-            No hay órdenes pendientes en este momento.
-          </p>
-        </div>
-      ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {orders.map((order) => (
-            <KitchenOrderCard 
-              key={order.id}
-              orderNumber={order.order_number}
-              customerName={order.customer_name}
-              tableNumber={order.table_number}
-              items={order.items}
-              createdAt={new Date(order.created_at)}
-              onComplete={handleOrderComplete}
-              onCancel={handleOrderCancel}
-            />
+          {[...Array(6)].map((_, i) => (
+            <SkeletonCard key={i} />
           ))}
         </div>
+      ) : (
+        <>
+          <KitchenStats {...kitchenStats} />
+
+          <h2 className="text-xl font-semibold mt-6">Órdenes en Preparación ({orders.length})</h2>
+
+          {orders.length === 0 ? (
+            <div className="text-center py-12">
+              <CheckCircle2 className="h-16 w-16 mx-auto text-success-500 mb-4" />
+              <h3 className="text-xl font-medium text-gray-900 dark:text-text-white">¡Todas las órdenes completadas!</h3>
+              <p className="mt-2 text-gray-500 dark:text-gray-400">
+                No hay órdenes pendientes en este momento.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {orders.map((order) => (
+                <KitchenOrderCard 
+                  key={order.id}
+                  orderNumber={order.order_number}
+                  customerName={order.customer_name}
+                  tableNumber={order.table_number}
+                  items={order.items}
+                  createdAt={new Date(order.created_at)}
+                  onComplete={handleOrderComplete}
+                  onCancel={handleOrderCancel}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

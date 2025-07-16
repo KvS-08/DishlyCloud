@@ -3,6 +3,7 @@ import { NotificationBell } from '../components/ui/NotificationBell';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { KitchenOrderCard } from '../components/kitchen/KitchenOrderCard';
+import { KitchenOrderCardSkeleton } from '../components/kitchen/KitchenOrderCardSkeleton';
 import { KitchenStats } from '../components/kitchen/KitchenStats';
 import { CheckCircle2 } from 'lucide-react';
 import { ThemeToggle } from '../components/ui/ThemeToggle';
@@ -206,8 +207,10 @@ export const KitchenPage: React.FC = () => {
       <h2 className="text-xl font-semibold mt-6">Órdenes en Preparación ({orders.length})</h2>
       
       {loading ? (
-        <div className="flex justify-center items-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-t-transparent"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <KitchenOrderCardSkeleton key={index} />
+          ))}
         </div>
       ) : orders.length === 0 ? (
         <div className="text-center py-12">
@@ -220,16 +223,12 @@ export const KitchenPage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {orders.map((order) => (
-            <KitchenOrderCard 
-              key={order.id}
-              orderNumber={order.order_number}
-              customerName={order.customer_name}
-              tableNumber={order.table_number}
-              items={order.items}
-              createdAt={new Date(order.created_at)}
-              onComplete={handleOrderComplete}
-              onCancel={handleOrderCancel}
-            />
+            <KitchenOrderCard
+               key={order.id}
+               order={order}
+               onComplete={handleOrderComplete}
+               onCancel={handleOrderCancel}
+             />
           ))}
         </div>
       )}

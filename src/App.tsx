@@ -16,7 +16,7 @@ import InicioPage from './pages/InicioPage';
 
 import { KitchenPage } from './pages/KitchenPage';
 import { BarPage } from './pages/BarPage';
-import PosPage from './pages/PosPage';
+const PosPage = React.lazy(() => import('./pages/PosPage'));
 import OptionsPage from './pages/OptionsPage';
 import MenuPage from './pages/MenuPage';
 import InventoryPage from './pages/InventoryPage';
@@ -303,7 +303,9 @@ const AppRoutes: React.FC = () => {
                 variants={pageVariants}
                 transition={pageTransition}
               >
-                <PosPage />
+                <React.Suspense fallback={<LoadingSpinner />}>
+                  <PosPage />
+                </React.Suspense>
               </motion.div>
             }
           />

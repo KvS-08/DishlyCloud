@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { ThemeToggle } from '../components/ui/ThemeToggle';
@@ -35,7 +35,7 @@ const MesasPage = () => {
     }
   }, [user?.business_id]);
 
-  const loadTables = async () => {
+  const loadTables = useCallback(async () => {
     if (!user?.business_id) return;
 
     setLoading(true);
@@ -80,22 +80,22 @@ const MesasPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.business_id]);
 
-  const handleTableAdded = (newTable: Table) => {
+  const handleTableAdded = useCallback((newTable: Table) => {
     setTables(prev => [newTable, ...prev]);
-  };
+  }, []);
 
-  const handleTableClick = (table: Table) => {
+  const handleTableClick = useCallback((table: Table) => {
     if (isEditMode) {
       // In edit mode, don't open details modal
       return;
     }
     setSelectedTable(table);
     setIsTableDetailsModalOpen(true);
-  };
+  }, [isEditMode]);
 
-  const handleDeleteTable = async (tableId: string, e: React.MouseEvent) => {
+  const handleDeleteTable = useCallback(async (tableId: string, e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent opening the table details modal
     
     if (!confirm('¿Estás seguro de que deseas eliminar esta mesa?')) {
@@ -121,11 +121,11 @@ const MesasPage = () => {
       console.error('Error deleting table:', error);
       toast.error('Error al eliminar la mesa');
     }
-  };
+  }, []);
 
-  const toggleEditMode = () => {
-    setIsEditMode(!isEditMode);
-  };
+  const toggleEditMode = useCallback(() => {
+    setIsEditMode(prev => !prev);
+  }, []);
 
   return (
     <div className="space-y-6 md:ml-32 pt-4 md:pt-0 md:-mt-10">
@@ -271,4 +271,4 @@ const MesasPage = () => {
   );
 };
 
-export default MesasPage;
+export default React.memo(MesasPage);
