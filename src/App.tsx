@@ -12,7 +12,7 @@ import { MainLayout } from './components/layout/MainLayout';
 
 // Pages
 import { LoginPage } from './pages/LoginPage';
-import InicioPage from './pages/InicioPage';
+const InicioPage = React.lazy(() => import('./pages/InicioPage'));
 
 import { KitchenPage } from './pages/KitchenPage';
 import { BarPage } from './pages/BarPage';
@@ -120,7 +120,17 @@ const AppRoutes: React.FC = () => {
               transition={pageTransition}
             >
               {user ? (
-                <Navigate to="/inicio" replace />
+                user.role?.toLowerCase() === 'admin' || user.role?.toLowerCase() === 'cashier' ? (
+                  <Navigate to="/inicio" replace />
+                ) : user.role?.toLowerCase() === 'waiter' ? (
+                  <Navigate to="/sales" replace />
+                ) : user.role?.toLowerCase() === 'chef' ? (
+                  <Navigate to="/kitchen" replace />
+                ) : user.role?.toLowerCase() === 'master' || user.role?.toLowerCase() === 'master user' ? (
+                  <Navigate to="/negocios" replace />
+                ) : (
+                  <Navigate to="/pos" replace /> // Default for other roles not explicitly handled
+                )
               ) : (
                 <Navigate to="/login" replace />
               )}
@@ -134,7 +144,7 @@ const AppRoutes: React.FC = () => {
         >
           <Route
             path="login"
-            element={!user ? <LoginPage /> : <Navigate to="/pos" replace />} 
+            element={!user ? <LoginPage /> : <Navigate to="/inicio" replace />} 
           />
         </Route>
 
@@ -159,7 +169,9 @@ const AppRoutes: React.FC = () => {
                 variants={pageVariants}
                 transition={pageTransition}
               >
-                <InicioPage />
+                <React.Suspense fallback={<div>Cargando...</div>}>
+              <InicioPage />
+            </React.Suspense>
               </motion.div>
             }
           />
