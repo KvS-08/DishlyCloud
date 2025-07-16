@@ -9,6 +9,8 @@ import { GiPayMoney, GiReceiveMoney, GiMoneyStack } from 'react-icons/gi';
 import { RiStockFill } from 'react-icons/ri';
 import { LuChefHat } from 'react-icons/lu';
 import { IoIosBeer } from 'react-icons/io';
+import { FaCheckCircle } from 'react-icons/fa';
+import { MdTimer } from 'react-icons/md';
 import DashboardCardSkeleton from '../components/ui/DashboardCardSkeleton';
 
 const InicioPage: React.FC = React.memo(() => {
@@ -125,6 +127,24 @@ const InicioPage: React.FC = React.memo(() => {
                 <div className="flex items-center justify-between mb-2">
                   <h2 className="text-sm lg:text-sm font-semibold text-gray-900 dark:text-white">Bartender más productivo</h2>
                   <IoIosBeer className="text-lg text-orange-500" />
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 text-xs lg:text-lg font-bold text-center">0</p>
+              </div>
+
+              {/* New Card for Órdenes atendidas */}
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-sm lg:text-sm font-semibold text-gray-900 dark:text-white">Órdenes atendidas</h2>
+                  <FaCheckCircle className="text-lg text-green-500" />
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 text-xs lg:text-lg font-bold text-center">0</p>
+              </div>
+
+              {/* New Card for Tiempo de preparación */}
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-sm lg:text-sm font-semibold text-gray-900 dark:text-white">Tiempo de preparación</h2>
+                  <MdTimer className="text-lg text-white-500" />
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 text-xs lg:text-lg font-bold text-center">0</p>
               </div>
