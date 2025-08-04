@@ -19,7 +19,6 @@ const backgroundImages = [
    '/login-backgrounds/Background-Pizza-C.jpg',
    '/login-backgrounds/Background-Pizza-D.jpg',
    '/login-backgrounds/Background-Pizza-E.jpg',
-   '/login-backgrounds/Background-Pizza-F.jpg',
    '/login-backgrounds/Background-Taco-A.jpg',
 ];
 
